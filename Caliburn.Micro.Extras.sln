@@ -17,6 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caliburn.Micro.Extras.NET45
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9E5F72A3-1FCE-4657-998F-B8E22C7475BE}"
 	ProjectSection(SolutionItems) = preProject
+		build\Caliburn.Micro.Extras.nuspec = build\Caliburn.Micro.Extras.nuspec
 		src\GlobalAssemblyInfo.cs = src\GlobalAssemblyInfo.cs
 		LICENSE.txt = LICENSE.txt
 		README.md = README.md
