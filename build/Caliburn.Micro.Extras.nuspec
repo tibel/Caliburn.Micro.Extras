@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Caliburn.Micro.Extras</id>
+    <title>Caliburn.Micro Extras</title>
+    <version>1.0.0</version>
+    <authors>Thomas Ibel</authors>
+    <description>Some additions to Caliburn.Micro framework.</description>
+    <language>en-US</language>
+    <licenseUrl>https://github.com/tibel/Caliburn.Micro.Extras/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/tibel/Caliburn.Micro.Extras</projectUrl>
+    <iconUrl>https://github.com/tibel/Caliburn.Micro.Extras/blob/master/build/Icon_dialog.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <releaseNotes>Initial Release</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <tags>Caliburn MVVM</tags>
+    <dependencies>
+      <group>
+        <dependency id="Caliburn.Micro" version="1.5.1" />
+      </group>
+    </dependencies>
+  </metadata>
+
+  <files>
+    <file src="..\bin\net40\Caliburn.Micro.Extras.*" target="lib\net40" />
+    <file src="..\bin\net45\Caliburn.Micro.Extras.*" target="lib\net45" />
+    <file src="..\bin\sl4\Caliburn.Micro.Extras.*" target="lib\sl4" />
+    <file src="..\bin\sl5\Caliburn.Micro.Extras.*" target="lib\sl5" />
+    <file src="..\bin\winrt45\Caliburn.Micro.Extras.*" target="lib\win8" />
+    <file src="..\bin\wp71\Caliburn.Micro.Extras.*" target="lib\wp71" />
+    <file src="..\bin\wp8\Caliburn.Micro.Extras.*" target="lib\wp8" />
+  </files>
+</package>
