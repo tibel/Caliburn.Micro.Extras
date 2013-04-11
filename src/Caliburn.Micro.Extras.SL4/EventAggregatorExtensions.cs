@@ -53,7 +53,7 @@
         /// </summary>
         /// <param name="eventAggregator">The event aggregator.</param>
         /// <param name="message">The message instance.</param>
-        public static Task OnUIThreadAsync(this IEventAggregator eventAggregator, object message) {
+        public static Task PublishOnUIThreadAsync(this IEventAggregator eventAggregator, object message) {
             Task task = null;
             eventAggregator.Publish(message, action => task = action.OnUIThreadAsync());
             return task;
