@@ -80,6 +80,8 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="EventAggregatorExtensions.cs" />
+    <Compile Include="IMessageService.cs" />
+    <Compile Include="MessageService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
