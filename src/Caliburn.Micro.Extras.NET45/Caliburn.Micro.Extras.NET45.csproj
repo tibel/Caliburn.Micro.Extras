@@ -65,8 +65,20 @@
     <Compile Include="..\Caliburn.Micro.Extras.SL4\IMessageService.cs">
       <Link>IMessageService.cs</Link>
     </Compile>
+    <Compile Include="..\Caliburn.Micro.Extras.SL4\IOpenFileService.cs">
+      <Link>IOpenFileService.cs</Link>
+    </Compile>
+    <Compile Include="..\Caliburn.Micro.Extras.SL4\ISaveFileSerivce.cs">
+      <Link>ISaveFileSerivce.cs</Link>
+    </Compile>
     <Compile Include="..\Caliburn.Micro.Extras.SL4\MessageService.cs">
       <Link>MessageService.cs</Link>
+    </Compile>
+    <Compile Include="..\Caliburn.Micro.Extras.SL4\OpenFileService.cs">
+      <Link>OpenFileService.cs</Link>
+    </Compile>
+    <Compile Include="..\Caliburn.Micro.Extras.SL4\SaveFileService.cs">
+      <Link>SaveFileService.cs</Link>
     </Compile>
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
