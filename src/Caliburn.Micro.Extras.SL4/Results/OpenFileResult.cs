@@ -23,7 +23,7 @@
         /// Initializes a new instance of the <see cref="OpenFileResult{TResult}"/> class.
         /// </summary>
         /// <param name="multiselect">Determines wether it is allows to select multiple files.</param>
-        /// <param name="title">The title of the dialog</param>
+        /// <param name="title">The title of the dialog.</param>
         protected OpenFileResult(bool multiselect, string title = null) {
             this.multiselect = multiselect;
             this.title = title;
@@ -32,7 +32,7 @@
         /// <summary>
         /// Gets the opened file(s).
         /// </summary>
-        public TResult Result { get; private set; }
+        public TResult Result { get; protected set; }
 
         /// <summary>
         /// Executes the result using the specified context.
@@ -92,6 +92,7 @@
         /// <summary>
         /// Open a single file.
         /// </summary>
+        /// <param name="title">The title of the dialog.</param>
         /// <returns></returns>
         public static OpenFileResult<FileInfo> OneFile(string title = null) {
             return new OneFileResult(title);
@@ -100,6 +101,7 @@
         /// <summary>
         /// Open multiple files.
         /// </summary>
+        /// <param name="title">The title of the dialog.</param>
         /// <returns></returns>
         public static OpenFileResult<IEnumerable<FileInfo>> MultipleFiles(string title = null) {
             return new MultipleFilesResult(title);
@@ -117,7 +119,9 @@
         }
 
         class MultipleFilesResult : OpenFileResult<IEnumerable<FileInfo>> {
-            public MultipleFilesResult(string title) : base(true, title) { }
+            public MultipleFilesResult(string title) : base(true, title) {
+                Result = new FileInfo[0];
+            }
 
             protected override void OnCompleted(IOpenFileService openFileService, ResultCompletionEventArgs args) {
                 if (!args.WasCancelled)

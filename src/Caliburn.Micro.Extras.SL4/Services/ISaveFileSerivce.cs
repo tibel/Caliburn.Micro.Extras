@@ -22,6 +22,16 @@
 
 #if NET
         /// <summary>
+        /// Gets or sets a value indicating whether this instance prompts the user for permission to create a file if the user specifies a file that does not exist.
+        /// </summary>
+        bool CreatePrompt { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance displays a warning if the user specifies the name of a file that already exists.
+        /// </summary>
+        bool OverwritePrompt { get; set; }
+
+        /// <summary>
         ///  Gets or sets the initial directory displayed by the file dialog box.
         /// </summary>
         string InitialDirectory { get; set; }

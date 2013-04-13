@@ -72,6 +72,9 @@
     <Compile Include="..\Caliburn.Micro.Extras.SL4\Results\OpenFileResult.cs">
       <Link>Results\OpenFileResult.cs</Link>
     </Compile>
+    <Compile Include="..\Caliburn.Micro.Extras.SL4\Results\SaveFileResult.cs">
+      <Link>Results\SaveFileResult.cs</Link>
+    </Compile>
     <Compile Include="..\Caliburn.Micro.Extras.SL4\Services\IMessageService.cs">
       <Link>Services\IMessageService.cs</Link>
     </Compile>

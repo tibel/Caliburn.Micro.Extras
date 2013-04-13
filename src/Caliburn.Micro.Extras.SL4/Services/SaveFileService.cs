@@ -18,6 +18,10 @@
         /// </summary>
         public SaveFileService() {
             saveFileDialog = new SaveFileDialog();
+#if NET
+            saveFileDialog.AddExtension = true;
+            saveFileDialog.CheckPathExists = true;
+#endif
         }
 
         /// <summary>
@@ -47,6 +51,22 @@
         }
 
 #if NET
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance prompts the user for permission to create a file if the user specifies a file that does not exist.
+        /// </summary>
+        public bool CreatePrompt {
+            get { return saveFileDialog.CreatePrompt; }
+            set { saveFileDialog.CreatePrompt = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance displays a warning if the user specifies the name of a file that already exists.
+        /// </summary>
+        public bool OverwritePrompt {
+            get { return saveFileDialog.OverwritePrompt; }
+            set { saveFileDialog.OverwritePrompt = value; }
+        }
+
         /// <summary>
         ///  Gets or sets the initial directory displayed by the file dialog box.
         /// </summary>
