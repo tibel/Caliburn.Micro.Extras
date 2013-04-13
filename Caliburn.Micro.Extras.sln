@@ -30,6 +30,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{3E10E8
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{64830E3C-D8D2-48BB-B153-00AE9D6DF0D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.HelloWP71.Module1", "samples\Samples.HelloWP71.Module1\Samples.HelloWP71.Module1.csproj", "{3F6108F6-4F38-4B8B-8E25-497229E9864A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.HelloWP71.Module2", "samples\Samples.HelloWP71.Module2\Samples.HelloWP71.Module2.csproj", "{2A9BDF69-E8F0-4C1B-90EC-D60CC39F7824}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.HelloWP71", "samples\Samples.HelloWP71\Samples.HelloWP71.csproj", "{4F802823-BE21-49A5-AE6E-5BB2A41A00AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -122,8 +130,45 @@ Global
 		{D09CB27F-FF42-4A43-85B7-EE3C7484DCD1}.Release|ARM.ActiveCfg = Release|Any CPU
 		{D09CB27F-FF42-4A43-85B7-EE3C7484DCD1}.Release|x64.ActiveCfg = Release|Any CPU
 		{D09CB27F-FF42-4A43-85B7-EE3C7484DCD1}.Release|x86.ActiveCfg = Release|Any CPU
+		{3F6108F6-4F38-4B8B-8E25-497229E9864A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F6108F6-4F38-4B8B-8E25-497229E9864A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F6108F6-4F38-4B8B-8E25-497229E9864A}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{3F6108F6-4F38-4B8B-8E25-497229E9864A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3F6108F6-4F38-4B8B-8E25-497229E9864A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3F6108F6-4F38-4B8B-8E25-497229E9864A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F6108F6-4F38-4B8B-8E25-497229E9864A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F6108F6-4F38-4B8B-8E25-497229E9864A}.Release|ARM.ActiveCfg = Release|Any CPU
+		{3F6108F6-4F38-4B8B-8E25-497229E9864A}.Release|x64.ActiveCfg = Release|Any CPU
+		{3F6108F6-4F38-4B8B-8E25-497229E9864A}.Release|x86.ActiveCfg = Release|Any CPU
+		{2A9BDF69-E8F0-4C1B-90EC-D60CC39F7824}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A9BDF69-E8F0-4C1B-90EC-D60CC39F7824}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A9BDF69-E8F0-4C1B-90EC-D60CC39F7824}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{2A9BDF69-E8F0-4C1B-90EC-D60CC39F7824}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2A9BDF69-E8F0-4C1B-90EC-D60CC39F7824}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2A9BDF69-E8F0-4C1B-90EC-D60CC39F7824}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A9BDF69-E8F0-4C1B-90EC-D60CC39F7824}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A9BDF69-E8F0-4C1B-90EC-D60CC39F7824}.Release|ARM.ActiveCfg = Release|Any CPU
+		{2A9BDF69-E8F0-4C1B-90EC-D60CC39F7824}.Release|x64.ActiveCfg = Release|Any CPU
+		{2A9BDF69-E8F0-4C1B-90EC-D60CC39F7824}.Release|x86.ActiveCfg = Release|Any CPU
+		{4F802823-BE21-49A5-AE6E-5BB2A41A00AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F802823-BE21-49A5-AE6E-5BB2A41A00AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F802823-BE21-49A5-AE6E-5BB2A41A00AE}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{4F802823-BE21-49A5-AE6E-5BB2A41A00AE}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{4F802823-BE21-49A5-AE6E-5BB2A41A00AE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4F802823-BE21-49A5-AE6E-5BB2A41A00AE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4F802823-BE21-49A5-AE6E-5BB2A41A00AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F802823-BE21-49A5-AE6E-5BB2A41A00AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F802823-BE21-49A5-AE6E-5BB2A41A00AE}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{4F802823-BE21-49A5-AE6E-5BB2A41A00AE}.Release|ARM.ActiveCfg = Release|Any CPU
+		{4F802823-BE21-49A5-AE6E-5BB2A41A00AE}.Release|x64.ActiveCfg = Release|Any CPU
+		{4F802823-BE21-49A5-AE6E-5BB2A41A00AE}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3F6108F6-4F38-4B8B-8E25-497229E9864A} = {64830E3C-D8D2-48BB-B153-00AE9D6DF0D7}
+		{2A9BDF69-E8F0-4C1B-90EC-D60CC39F7824} = {64830E3C-D8D2-48BB-B153-00AE9D6DF0D7}
+		{4F802823-BE21-49A5-AE6E-5BB2A41A00AE} = {64830E3C-D8D2-48BB-B153-00AE9D6DF0D7}
 	EndGlobalSection
 EndGlobal
