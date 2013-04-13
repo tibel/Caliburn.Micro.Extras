@@ -83,6 +83,9 @@
     <Compile Include="..\Caliburn.Micro.Extras.SL4\Results\CancelResult.cs">
       <Link>Results\CancelResult.cs</Link>
     </Compile>
+    <Compile Include="..\Caliburn.Micro.Extras.SL4\Results\DelegateResult.cs">
+      <Link>Results\DelegateResult.cs</Link>
+    </Compile>
     <Compile Include="..\Caliburn.Micro.Extras.SL4\Results\OpenFileResult.cs">
       <Link>Results\OpenFileResult.cs</Link>
     </Compile>
