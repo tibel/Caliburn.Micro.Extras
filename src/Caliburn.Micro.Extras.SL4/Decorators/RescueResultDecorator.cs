@@ -20,7 +20,6 @@
         /// <param name="result">The result to decorate.</param>
         /// <param name="rescue">The rescue coroutine.</param>
         /// <param name="cancelResult">Set to true to cancel the result after executing rescue.</param>
-        /// <exception cref="System.ArgumentNullException">rescue</exception>
         public RescueResultDecorator(IResult result, Func<TException, IEnumerable<IResult>> rescue, bool cancelResult = true) : base(result) {
             if (rescue == null)
                 throw new ArgumentNullException("rescue");

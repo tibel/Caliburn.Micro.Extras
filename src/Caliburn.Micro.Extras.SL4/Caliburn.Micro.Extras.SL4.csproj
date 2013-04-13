@@ -85,6 +85,7 @@
     <Compile Include="Decorators\RescueResultDecorator.cs" />
     <Compile Include="Decorators\ResultDecoratorBase.cs" />
     <Compile Include="EventAggregatorExtensions.cs" />
+    <Compile Include="ResultExtensions.cs" />
     <Compile Include="Results\CancelResult.cs" />
     <Compile Include="Results\OpenFileResult.cs" />
     <Compile Include="Results\SaveFileResult.cs" />
