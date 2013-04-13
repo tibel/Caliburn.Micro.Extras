@@ -60,6 +60,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Caliburn.Micro.Extras.SL4\DebugLogger.cs">
+      <Link>DebugLogger.cs</Link>
+    </Compile>
     <Compile Include="..\Caliburn.Micro.Extras.SL4\EventAggregatorExtensions.cs">
       <Link>EventAggregatorExtensions.cs</Link>
     </Compile>
