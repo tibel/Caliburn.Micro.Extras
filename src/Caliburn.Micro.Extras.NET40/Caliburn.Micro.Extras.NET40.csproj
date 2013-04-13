@@ -66,23 +66,23 @@
     <Compile Include="..\Caliburn.Micro.Extras.SL4\EventAggregatorExtensions.cs">
       <Link>EventAggregatorExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\Caliburn.Micro.Extras.SL4\IMessageService.cs">
-      <Link>IMessageService.cs</Link>
+    <Compile Include="..\Caliburn.Micro.Extras.SL4\Services\IMessageService.cs">
+      <Link>Services\IMessageService.cs</Link>
     </Compile>
-    <Compile Include="..\Caliburn.Micro.Extras.SL4\IOpenFileService.cs">
-      <Link>IOpenFileService.cs</Link>
+    <Compile Include="..\Caliburn.Micro.Extras.SL4\Services\IOpenFileService.cs">
+      <Link>Services\IOpenFileService.cs</Link>
     </Compile>
-    <Compile Include="..\Caliburn.Micro.Extras.SL4\ISaveFileSerivce.cs">
-      <Link>ISaveFileSerivce.cs</Link>
+    <Compile Include="..\Caliburn.Micro.Extras.SL4\Services\ISaveFileSerivce.cs">
+      <Link>Services\ISaveFileSerivce.cs</Link>
     </Compile>
-    <Compile Include="..\Caliburn.Micro.Extras.SL4\MessageService.cs">
-      <Link>MessageService.cs</Link>
+    <Compile Include="..\Caliburn.Micro.Extras.SL4\Services\MessageService.cs">
+      <Link>Services\MessageService.cs</Link>
     </Compile>
-    <Compile Include="..\Caliburn.Micro.Extras.SL4\OpenFileService.cs">
-      <Link>OpenFileService.cs</Link>
+    <Compile Include="..\Caliburn.Micro.Extras.SL4\Services\OpenFileService.cs">
+      <Link>Services\OpenFileService.cs</Link>
     </Compile>
-    <Compile Include="..\Caliburn.Micro.Extras.SL4\SaveFileService.cs">
-      <Link>SaveFileService.cs</Link>
+    <Compile Include="..\Caliburn.Micro.Extras.SL4\Services\SaveFileService.cs">
+      <Link>Services\SaveFileService.cs</Link>
     </Compile>
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>

@@ -81,13 +81,13 @@
     </Compile>
     <Compile Include="DebugLogger.cs" />
     <Compile Include="EventAggregatorExtensions.cs" />
-    <Compile Include="IMessageService.cs" />
-    <Compile Include="IOpenFileService.cs" />
-    <Compile Include="ISaveFileSerivce.cs" />
-    <Compile Include="MessageService.cs" />
-    <Compile Include="OpenFileService.cs" />
+    <Compile Include="Services\IMessageService.cs" />
+    <Compile Include="Services\IOpenFileService.cs" />
+    <Compile Include="Services\ISaveFileSerivce.cs" />
+    <Compile Include="Services\MessageService.cs" />
+    <Compile Include="Services\OpenFileService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SaveFileService.cs" />
+    <Compile Include="Services\SaveFileService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Caliburn.Micro.Extras.snk">
