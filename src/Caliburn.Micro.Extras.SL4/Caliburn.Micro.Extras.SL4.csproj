@@ -82,6 +82,7 @@
     <Compile Include="DebugLogger.cs" />
     <Compile Include="EventAggregatorExtensions.cs" />
     <Compile Include="Results\CancelResult.cs" />
+    <Compile Include="Results\OpenFileResult.cs" />
     <Compile Include="Services\IMessageService.cs" />
     <Compile Include="Services\IOpenFileService.cs" />
     <Compile Include="Services\ISaveFileSerivce.cs" />

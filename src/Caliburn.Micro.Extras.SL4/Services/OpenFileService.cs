@@ -20,6 +20,10 @@
         /// </summary>
         public OpenFileService() {
             openFileDialog = new OpenFileDialog();
+#if NET
+            openFileDialog.CheckFileExists = true;
+            openFileDialog.CheckPathExists = true;
+#endif
         }
 
         /// <summary>
