@@ -20,6 +20,18 @@
         /// </summary>
         string SafeFileName { get; }
 
+#if NET
+        /// <summary>
+        ///  Gets or sets the initial directory displayed by the file dialog box.
+        /// </summary>
+        string InitialDirectory { get; set; }
+
+        /// <summary>
+        /// Gets or sets a string shown in the title bar of the file dialog.
+        /// </summary> 
+        string Title { get; set; }
+#endif
+
         /// <summary>
         /// Determines the filename of the file what will be used.
         /// </summary>

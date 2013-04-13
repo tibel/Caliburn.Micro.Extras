@@ -46,6 +46,26 @@
             get { return saveFileDialog.SafeFileName; }
         }
 
+#if NET
+        /// <summary>
+        ///  Gets or sets the initial directory displayed by the file dialog box.
+        /// </summary>
+        public string InitialDirectory
+        {
+            get { return saveFileDialog.InitialDirectory; }
+            set { saveFileDialog.InitialDirectory = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets a string shown in the title bar of the file dialog.
+        /// </summary> 
+        public string Title
+        {
+            get { return saveFileDialog.Title; }
+            set { saveFileDialog.Title = value; }
+        }
+#endif
+
         /// <summary>
         /// Determines the filename of the file what will be used.
         /// </summary>

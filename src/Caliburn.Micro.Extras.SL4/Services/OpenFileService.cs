@@ -64,6 +64,26 @@
             set { openFileDialog.Multiselect = value; }
         }
 
+#if NET
+        /// <summary>
+        ///  Gets or sets the initial directory displayed by the file dialog box.
+        /// </summary>
+        public string InitialDirectory
+        {
+            get { return openFileDialog.InitialDirectory; }
+            set { openFileDialog.InitialDirectory = value; }
+        } 
+
+        /// <summary>
+        /// Gets or sets a string shown in the title bar of the file dialog.
+        /// </summary> 
+        public string Title
+        {
+            get { return openFileDialog.Title; }
+            set { openFileDialog.Title = value; }
+        }
+#endif
+
         /// <summary>
         /// Determines the filename of the file what will be used.
         /// </summary>
