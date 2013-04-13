@@ -1,5 +1,4 @@
-Caliburn.Micro.Extras
-=====================
+# Caliburn.Micro.Extras
 
 [Caliburn.Micro](http://caliburnmicro.codeplex.com/) is a powerful framework for building WPF, Silverlight, Windows Phone and Windows 8 Store apps.
 These additions make it easier to to get the most out of the framework.
@@ -7,7 +6,7 @@ These additions make it easier to to get the most out of the framework.
 ## Install 
 The extras are available through NuGet:
 
-`Install-Package Calliburn.Micro.Extras`
+**Install-Package** [Caliburn.Micro.Extras](https://www.nuget.org/packages/Caliburn.Micro.Extras/)
 
 ## Content
 * [Win8] `IWindowManager` for displaying normal dialogs all around the screen
