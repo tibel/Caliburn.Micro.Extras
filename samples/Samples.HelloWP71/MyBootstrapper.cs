@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using Caliburn.Micro;
+using Caliburn.Micro.Extras;
 using Caliburn.Micro.Extras.ExternalModules;
 
 namespace Samples.HelloWP71 {
@@ -11,10 +12,11 @@ namespace Samples.HelloWP71 {
         protected override void Configure() {
             container = new PhoneContainer(RootFrame);
             container.RegisterPhoneServices();
+            container.Singleton<IMessageService, MessageService>();
 
             //NOTE: don't register anything from the module assemblies here
             container.PerRequest<MainPageViewModel>();
-
+            
             //NOTE: install the conventions
             ModuleConventions.Install();
         }
