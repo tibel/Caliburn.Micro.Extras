@@ -76,6 +76,9 @@
     <Reference Include="System.Windows.Browser" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Caliburn.Micro.Extras.SL4\ActionCommand.cs">
+      <Link>ActionCommand.cs</Link>
+    </Compile>
     <Compile Include="..\Caliburn.Micro.Extras.SL4\DebugLogger.cs">
       <Link>DebugLogger.cs</Link>
     </Compile>

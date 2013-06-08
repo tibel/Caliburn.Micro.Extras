@@ -79,6 +79,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="ActionCommand.cs" />
     <Compile Include="DebugLogger.cs" />
     <Compile Include="Decorators\ContinueResultDecorator.cs" />
     <Compile Include="Decorators\OverrideCancelResultDecorator.cs" />
