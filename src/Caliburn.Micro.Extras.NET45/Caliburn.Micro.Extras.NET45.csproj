@@ -80,6 +80,15 @@
     <Compile Include="..\Caliburn.Micro.Extras.SL4\EventAggregatorExtensions.cs">
       <Link>EventAggregatorExtensions.cs</Link>
     </Compile>
+    <Compile Include="..\Caliburn.Micro.Extras.SL4\Events\ReflectionHelper.cs">
+      <Link>Events\ReflectionHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\Caliburn.Micro.Extras.SL4\Events\WeakEventHandler.cs">
+      <Link>Events\WeakEventHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\Caliburn.Micro.Extras.SL4\Events\WeakEventSource.cs">
+      <Link>Events\WeakEventSource.cs</Link>
+    </Compile>
     <Compile Include="..\Caliburn.Micro.Extras.SL4\ResultExtensions.cs">
       <Link>ResultExtensions.cs</Link>
     </Compile>

@@ -3,15 +3,14 @@
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Windows.Input;
-#if WinRT
-    using System.Reflection;
-#endif
 
     /// <summary>
     /// Wraps a ViewModel method (with guard) in an <see cref="ICommand"/>.
     /// </summary>
     public class ActionCommand : ICommand, IDisposable {
         readonly ActionExecutionContext context;
+        readonly WeakEventSource<EventHandler> canExecuteChangedSource = new WeakEventSource<EventHandler>();
+        const string GuardNameKey = "guardName";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ActionCommand"/> class.
@@ -22,11 +21,7 @@
             if (target == null)
                 throw new ArgumentNullException("target");
 
-#if WinRT
-            var method = target.GetType().GetRuntimeMethod(methodName, new Type[0]);
-#else
-            var method = target.GetType().GetMethod(methodName, Type.EmptyTypes);
-#endif
+            var method = target.GetType().GetMethod(methodName);
             if (method == null)
                 throw new ArgumentException(@"Specified method cannot be found.", "methodName");
 
@@ -35,7 +30,28 @@
                 Method = method,
             };
 
-            SetupCanExecute(context, () => CanExecuteChanged(this, EventArgs.Empty));
+            var inpc = context.Target as INotifyPropertyChanged;
+            var guardName = "Can" + context.Method.Name;
+            var targetType = context.Target.GetType();
+            var guard = targetType.GetMethod("get_" + guardName);
+            if (inpc == null || guard == null) return;
+
+            WeakEventHandler.Register<INotifyPropertyChanged, PropertyChangedEventHandler, PropertyChangedEventArgs, ActionCommand>
+                (h => new PropertyChangedEventHandler(h),
+                 inpc,
+                 (s, h) => s.PropertyChanged += h,
+                 (s, h) => s.PropertyChanged -= h,
+                 this,
+                 (t, s, e) => t.OnPropertyChanged(s, e)
+                );
+
+            context.CanExecute = () => (bool)guard.Invoke(context.Target, new object[0]);
+        }
+
+        void OnPropertyChanged(object sender, PropertyChangedEventArgs e) {
+            if (string.IsNullOrEmpty(e.PropertyName) || e.PropertyName == (string)context[GuardNameKey]) {
+                Micro.Execute.OnUIThread(() => canExecuteChangedSource.Raise(this, EventArgs.Empty));
+            }
         }
 
         /// <summary>
@@ -87,48 +103,9 @@
         /// <summary>
         /// Occurs when changes occur that affect whether the command should execute.
         /// </summary>
-        public event EventHandler CanExecuteChanged = delegate { };
-
-        static void SetupCanExecute(ActionExecutionContext context, System.Action raiseCanExecuteChanged) {
-            var inpc = context.Target as INotifyPropertyChanged;
-            if (inpc == null) return;
-            
-            var guardName = "Can" + context.Method.Name;
-            var targetType = context.Target.GetType();
-#if WinRT
-            var guard = targetType.GetRuntimeMethod("get_" + guardName, new Type[0]);
-#else
-            var guard = targetType.GetMethod("get_" + guardName, Type.EmptyTypes);
-#endif
-            if (guard == null) return;
-
-            SetupCanExecuteChanged(context, inpc, guardName, raiseCanExecuteChanged);
-
-            context.CanExecute = () => (bool)guard.Invoke(context.Target, new object[0]);
-        }
-
-        static void SetupCanExecuteChanged(ActionExecutionContext context, INotifyPropertyChanged inpc,
-                                           string guardName, System.Action raiseCanExecuteChanged) {
-            PropertyChangedEventHandler propertyChangedHandler = null;
-            propertyChangedHandler = (s, e) => {
-                    if (string.IsNullOrEmpty(e.PropertyName) || e.PropertyName == guardName) {
-                        raiseCanExecuteChanged.OnUIThread();
-                    }
-                };
-            inpc.PropertyChanged += propertyChangedHandler;
-            context.Disposing += delegate { inpc.PropertyChanged -= propertyChangedHandler; };
-
-            var deactivatable = inpc as IDeactivate;
-            if (deactivatable == null) return;
-
-            EventHandler<DeactivationEventArgs> deactivatableHandler = null;
-            deactivatableHandler = (s, e) => {
-                    if (!e.WasClosed) return;
-                    deactivatable.Deactivated -= deactivatableHandler;
-                    context.Dispose();
-                };
-            deactivatable.Deactivated += deactivatableHandler;
-            context.Disposing += delegate { deactivatable.Deactivated -= deactivatableHandler; };
+        public event EventHandler CanExecuteChanged {
+            add { canExecuteChangedSource.Add(value); }
+            remove { canExecuteChangedSource.Remove(value); }
         }
     }
 }

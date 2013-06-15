@@ -86,6 +86,8 @@
     <Compile Include="Decorators\RescueResultDecorator.cs" />
     <Compile Include="Decorators\ResultDecoratorBase.cs" />
     <Compile Include="EventAggregatorExtensions.cs" />
+    <Compile Include="Events\ReflectionHelper.cs" />
+    <Compile Include="Events\WeakEventHandler.cs" />
     <Compile Include="ResultExtensions.cs" />
     <Compile Include="Results\CancelResult.cs" />
     <Compile Include="Results\DelegateResult.cs" />
@@ -98,6 +100,7 @@
     <Compile Include="Services\OpenFileService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\SaveFileService.cs" />
+    <Compile Include="Events\WeakEventSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Caliburn.Micro.Extras.snk">
