@@ -5,6 +5,8 @@
     using System.Reflection;
 #endif
 
+    //TODO: optimize usage
+
     /// <summary>
     /// Helper class to add weak handlers to events.
     /// </summary>

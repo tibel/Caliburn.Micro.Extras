@@ -36,6 +36,7 @@
             var guard = targetType.GetMethod("get_" + guardName);
             if (inpc == null || guard == null) return;
 
+            context[GuardNameKey] = guardName;
             WeakEventHandler.Register<INotifyPropertyChanged, PropertyChangedEventHandler, PropertyChangedEventArgs, ActionCommand>
                 (h => new PropertyChangedEventHandler(h),
                  inpc,
