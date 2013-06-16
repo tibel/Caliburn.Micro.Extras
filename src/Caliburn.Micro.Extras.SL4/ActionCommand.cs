@@ -37,13 +37,12 @@
             if (inpc == null || guard == null) return;
 
             context[GuardNameKey] = guardName;
-            WeakEventHandler.Register<INotifyPropertyChanged, PropertyChangedEventHandler, PropertyChangedEventArgs, ActionCommand>
-                (h => new PropertyChangedEventHandler(h),
-                 inpc,
-                 (s, h) => s.PropertyChanged += h,
-                 (s, h) => s.PropertyChanged -= h,
+            WeakEventHandler.Register<PropertyChangedEventHandler, PropertyChangedEventArgs, ActionCommand>(
+                 h => inpc.PropertyChanged += h,
+                 h => inpc.PropertyChanged -= h,
                  this,
-                 (t, s, e) => t.OnPropertyChanged(s, e)
+                 (t, s, e) => t.OnPropertyChanged(s, e),
+                 h => new PropertyChangedEventHandler(h)
                 );
 
             context.CanExecute = () => (bool)guard.Invoke(context.Target, new object[0]);

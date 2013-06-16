@@ -1,11 +1,10 @@
 ﻿namespace Caliburn.Micro.Extras {
     using System;
     using System.Diagnostics.CodeAnalysis;
+
 #if WinRT
     using System.Reflection;
 #endif
-
-    //TODO: optimize usage
 
     /// <summary>
     /// Helper class to add weak handlers to events.
@@ -18,32 +17,30 @@
     /// <example>
     /// <code>
     /// WeakEventHandler.Register(
-    /// 	textDocument,
-    /// 	(d, eh) => d.Changed += eh,
-    /// 	(d, eh) => d.Changed -= eh,
+    /// 	eh => textDocument.Changed += eh,
+    /// 	eh => textDocument.Changed -= eh,
     /// 	this,
-    /// 	(me, sender, args) => me.OnDocumentChanged(sender, args)
+    /// 	(me, sender, args) => me.OnDocumentChanged(sender, args),
+    /// 	h => new TextChangedEventHandler(h)
     /// );
     /// </code>
     /// </example>
     [SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
     public class WeakEventHandler : IDisposable {
-        readonly WeakReference listeningReference;
-        Action deregisterCode;
+        private readonly WeakReference listeningReference;
+        private Action deregisterCode;
 
         private WeakEventHandler(object listeningObject) {
             listeningReference = new WeakReference(listeningObject);
         }
 
         private TEventHandler MakeDeregisterCodeAndWeakEventHandler
-            <TEventSource, TEventHandler, TEventArgs, TEventListener>
+            <TEventHandler, TEventArgs, TEventListener>
             (
             Func<EventHandler<TEventArgs>, TEventHandler> convert,
-            TEventSource senderObject,
-            Action<TEventSource, TEventHandler> deregisterEvent,
+            Action<TEventHandler> deregisterEvent,
             Action<TEventListener, object, TEventArgs> forwardAction
             )
-            where TEventSource : class
             where TEventHandler : class
             where TEventArgs : EventArgs
             where TEventListener : class {
@@ -57,7 +54,7 @@
                 }
             });
 
-            deregisterCode = () => deregisterEvent(senderObject, handler);
+            deregisterCode = () => deregisterEvent(handler);
 
             return handler;
         }
@@ -86,78 +83,35 @@
         }
 
         /// <summary>
-        /// Registers an event handler on an instance event.
-        /// </summary>
-        public static WeakEventHandler Register<TEventSource, TEventHandler, TEventArgs, TEventListener>(
-            Func<EventHandler<TEventArgs>, TEventHandler> convert,
-            TEventSource senderObject,
-            Action<TEventSource, TEventHandler> registerEvent,
-            Action<TEventSource, TEventHandler> deregisterEvent,
-            TEventListener listeningObject,
-            Action<TEventListener, object, TEventArgs> forwardAction
-            )
-            where TEventSource : class
-            where TEventHandler : class
-            where TEventArgs : EventArgs
-            where TEventListener : class {
-            if (senderObject == null)
-                throw new ArgumentNullException("senderObject");
-            if (listeningObject == null)
-                throw new ArgumentNullException("listeningObject");
-            VerifyDelegate(registerEvent, "registerEvent");
-            VerifyDelegate(deregisterEvent, "deregisterEvent");
-            VerifyDelegate(forwardAction, "forwardAction");
-
-            var weh = new WeakEventHandler(listeningObject);
-            var eh = weh.MakeDeregisterCodeAndWeakEventHandler(convert, senderObject, deregisterEvent, forwardAction);
-            registerEvent(senderObject, eh);
-            return weh;
-        }
-
-        /// <summary>
-        /// Registers an event handler on a generic instance event.
-        /// </summary>
-        public static WeakEventHandler Register<TEventSource, TEventArgs, TEventListener>(
-            TEventSource senderObject,
-            Action<TEventSource, EventHandler<TEventArgs>> registerEvent,
-            Action<TEventSource, EventHandler<TEventArgs>> deregisterEvent,
-            TEventListener listeningObject,
-            Action<TEventListener, object, TEventArgs> forwardAction
-            )
-            where TEventSource : class
-            where TEventArgs : EventArgs
-            where TEventListener : class {
-            return Register(h => h, senderObject, registerEvent, deregisterEvent, listeningObject, forwardAction);
-        }
-
-        /// <summary>
-        /// Registers an event handler on a static event.
+        /// Registers a weak event handler on a event.
         /// </summary>
         public static WeakEventHandler Register<TEventHandler, TEventArgs, TEventListener>(
-            Func<EventHandler<TEventArgs>, TEventHandler> convert,
             Action<TEventHandler> registerEvent,
             Action<TEventHandler> deregisterEvent,
             TEventListener listeningObject,
-            Action<TEventListener, object, TEventArgs> forwardAction
+            Action<TEventListener, object, TEventArgs> forwardAction,
+            Func<EventHandler<TEventArgs>, TEventHandler> convert
             )
             where TEventHandler : class
             where TEventArgs : EventArgs
-            where TEventListener : class
-        {
+            where TEventListener : class {
+            if (registerEvent == null)
+                throw new ArgumentNullException("registerEvent");
+            if (deregisterEvent == null)
+                throw new ArgumentNullException("deregisterEvent");
             if (listeningObject == null)
                 throw new ArgumentNullException("listeningObject");
-            VerifyDelegate(registerEvent, "registerEvent");
-            VerifyDelegate(deregisterEvent, "deregisterEvent");
+            VerifyDelegate(convert, "convert");
             VerifyDelegate(forwardAction, "forwardAction");
 
             var weh = new WeakEventHandler(listeningObject);
-            var eh = weh.MakeDeregisterCodeAndWeakEventHandler(convert, (object)null, (s, h) => deregisterEvent(h), forwardAction);
+            var eh = weh.MakeDeregisterCodeAndWeakEventHandler(convert, deregisterEvent, forwardAction);
             registerEvent(eh);
             return weh;
         }
 
         /// <summary>
-        /// Registers an event handler on a generic static event.
+        /// Registers a weak event handler on a generic event.
         /// </summary>
         public static WeakEventHandler Register<TEventArgs, TEventListener>(
             Action<EventHandler<TEventArgs>> registerEvent,
@@ -167,8 +121,8 @@
             )
             where TEventArgs : EventArgs
             where TEventListener : class {
-            return Register(h => h, registerEvent,
-                            deregisterEvent, listeningObject, forwardAction);
+            return Register(registerEvent,
+                            deregisterEvent, listeningObject, forwardAction, h => h);
         }
     }
 }
