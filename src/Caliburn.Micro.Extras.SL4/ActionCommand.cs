@@ -7,7 +7,7 @@
     /// <summary>
     /// Wraps a ViewModel method (with guard) in an <see cref="ICommand"/>.
     /// </summary>
-    public class ActionCommand : ICommand, IDisposable {
+    public class ActionCommand : ICommand {
         readonly ActionExecutionContext context;
         readonly WeakEventSource<EventHandler> canExecuteChangedSource = new WeakEventSource<EventHandler>();
         const string GuardNameKey = "guardName";
@@ -38,8 +38,8 @@
 
             context[GuardNameKey] = guardName;
             WeakEventHandler.Register<PropertyChangedEventHandler, PropertyChangedEventArgs, ActionCommand>(
-                 h => inpc.PropertyChanged += h,
-                 h => inpc.PropertyChanged -= h,
+                 h => ((INotifyPropertyChanged)context.Target).PropertyChanged += h,
+                 h => ((INotifyPropertyChanged)context.Target).PropertyChanged -= h,
                  this,
                  (t, s, e) => t.OnPropertyChanged(s, e),
                  h => new PropertyChangedEventHandler(h)
@@ -52,13 +52,6 @@
             if (string.IsNullOrEmpty(e.PropertyName) || e.PropertyName == (string)context[GuardNameKey]) {
                 Micro.Execute.OnUIThread(() => canExecuteChangedSource.Raise(this, EventArgs.Empty));
             }
-        }
-
-        /// <summary>
-        /// Freeing held references.
-        /// </summary>
-        public void Dispose() {
-            context.Dispose();
         }
 
         /// <summary>

@@ -1,7 +1,6 @@
 ﻿namespace Caliburn.Micro.Extras {
     using System;
     using System.Diagnostics.CodeAnalysis;
-
 #if WinRT
     using System.Reflection;
 #endif
@@ -68,8 +67,9 @@
         /// </summary>
         public void Deregister() {
             if (deregisterCode != null) {
-                deregisterCode();
+                var action = deregisterCode;
                 deregisterCode = null;
+                action();
             }
         }
 
