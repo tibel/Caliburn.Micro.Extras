@@ -20,7 +20,7 @@
         string initialDirectory;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OpenFileResult{TResult}"/> class.
+        /// Initializes a new instance of the <see cref="OpenFileResult&lt;TResult&gt;"/> class.
         /// </summary>
         /// <param name="multiselect">Determines wether it is allows to select multiple files.</param>
         /// <param name="title">The title of the dialog.</param>

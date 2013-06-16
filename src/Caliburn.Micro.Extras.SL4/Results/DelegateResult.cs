@@ -44,7 +44,7 @@
         private readonly Func<TResult> toExecute;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DelegateResult{TResult}"/> class.
+        /// Initializes a new instance of the <see cref="DelegateResult&lt;TResult&gt;"/> class.
         /// </summary>
         /// <param name="action">The action.</param>
         public DelegateResult(Func<TResult> action) {

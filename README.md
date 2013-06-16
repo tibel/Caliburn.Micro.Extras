@@ -9,10 +9,13 @@ The extras are available through NuGet:
 **Install-Package** [Caliburn.Micro.Extras](https://www.nuget.org/packages/Caliburn.Micro.Extras/)
 
 ## Content
+* `ActionCommand` to use Caliburn.Micro _Actions_ with `ICommand`
+* `WeakEventHandler` to use a weak reference when registering to an event
+* `WeakEventSource` to implement a weak event 
 * [Win8] `IWindowManager` for displaying normal dialogs all around the screen
 * `DebugLogger` to see Caliburn.Micro logging output in Visual Studio
 * `EventAggregatorExtensions` to publish messages on different Threads
 * `IMessageService` to show a message box from the ViewModel
 * `IOpenFileService` and `ISaveFileSerivce` to show select a file from the ViewModel
-* `ResultExtensions` to get more out of Coroutines
+* `ResultExtensions` to get more out of Coroutines (_WhenCancelled_, _OverrideCancel_ and _Rescue_)
 * [WP71] and [WP8] Module level bootstrappers (inspired by [Splitting Application to Multiple Assemblies when using Caliburn.Micro](http://mikaelkoskinen.net/post/windows-phone-caliburn-micro-split-app-multiple-assemblies.aspx))

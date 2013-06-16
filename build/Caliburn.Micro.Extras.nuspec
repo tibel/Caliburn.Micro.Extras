@@ -3,7 +3,7 @@
   <metadata>
     <id>Caliburn.Micro.Extras</id>
     <title>Caliburn.Micro Extras</title>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <authors>Thomas Ibel</authors>
     <description>Some additions to Caliburn.Micro framework.</description>
     <language>en-US</language>
@@ -11,7 +11,7 @@
     <projectUrl>https://github.com/tibel/Caliburn.Micro.Extras</projectUrl>
     <iconUrl>https://raw.github.com/tibel/Caliburn.Micro.Extras/master/build/Icon_dialog.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <releaseNotes>Add some services, results, result-decorators and external modules support.</releaseNotes>
+    <releaseNotes>ActionCommand and weak event support added.</releaseNotes>
     <copyright>Copyright 2013</copyright>
     <tags>Caliburn MVVM Silverlight WPF WP7 WP71 WP8 WinRT Metro SL SL4 SL5 Convention Screen Coroutine Behavior Model-View-ViewModel Presentation UI ViewModel Phone</tags>
     <dependencies>
