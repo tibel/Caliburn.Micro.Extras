@@ -1,6 +1,7 @@
 ﻿namespace Caliburn.Micro.Extras {
     using System;
     using System.IO;
+    using System.Linq;
 
     /// <summary>
     /// A Caliburn.Micro Result that lets you save a file.
@@ -43,7 +44,8 @@
         /// </summary>
         /// <param name="context">The context.</param>
         public void Execute(ActionExecutionContext context) {
-            var saveFileService = IoC.Get<ISaveFileSerivce>();
+            var saveFileService = (ISaveFileSerivce) IoC.GetAllInstances(typeof (ISaveFileSerivce)).FirstOrDefault() ??
+                                  new SaveFileService();
             saveFileService.Filter = fileTypeFilter;
             saveFileService.DefaultExt = defaultFileExtension;
 

@@ -91,6 +91,7 @@
     <Compile Include="ResultExtensions.cs" />
     <Compile Include="Results\CancelResult.cs" />
     <Compile Include="Results\DelegateResult.cs" />
+    <Compile Include="Results\MessengerResult.cs" />
     <Compile Include="Results\OpenFileResult.cs" />
     <Compile Include="Results\SaveFileResult.cs" />
     <Compile Include="Services\IMessageService.cs" />

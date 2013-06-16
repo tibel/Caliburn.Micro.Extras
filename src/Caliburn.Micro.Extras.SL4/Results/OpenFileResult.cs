@@ -2,6 +2,7 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
 
     /// <summary>
     /// A Caliburn.Micro Result that lets you open a file.
@@ -39,7 +40,8 @@
         /// </summary>
         /// <param name="context">The context.</param>
         public void Execute(ActionExecutionContext context) {
-            var openFileService = IoC.Get<IOpenFileService>();
+            var openFileService = (IOpenFileService) IoC.GetAllInstances(typeof (IOpenFileService)).FirstOrDefault() ??
+                                  new OpenFileService();
             openFileService.Multiselect = multiselect;
             openFileService.Filter = fileTypeFilter;
 
