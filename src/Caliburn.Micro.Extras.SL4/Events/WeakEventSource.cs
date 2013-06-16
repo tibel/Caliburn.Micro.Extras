@@ -4,17 +4,16 @@
     using System.Reflection;
     using System.Runtime.CompilerServices;
 
-    //TODO: optimize speed by compiling method call into expression (after e.g. three invokations)
-    //TODO: thread safety (locking)
-
     /// <summary>
     /// A class for managing a weak event.
     /// </summary>
     /// <typeparam name="TEventHandler">The type of the event handler.</typeparam>
-    public sealed class WeakEventSource<TEventHandler> where TEventHandler : class {
-        private struct EventHandlerEntry {
+    public class WeakEventSource<TEventHandler> where TEventHandler : class {
+        private class EventHandlerEntry {
             public readonly MethodInfo TargetMethod;
             public readonly WeakReference TargetReference;
+            public int CallCount;
+            public Action<object, object, EventArgs> FastCall;
 
             public EventHandlerEntry(MethodInfo targetMethod, WeakReference targetReference) {
                 TargetMethod = targetMethod;
@@ -22,12 +21,14 @@
             }
         }
 
-        readonly List<EventHandlerEntry> eventHandlerEntries = new List<EventHandlerEntry>();
+        private readonly int invokationsToCompileDelegate;
+        private readonly List<EventHandlerEntry> eventHandlerEntries = new List<EventHandlerEntry>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WeakEventSource&lt;T&gt;"/> class.
         /// </summary>
-        public WeakEventSource() {
+        /// <param name="invokationsToCompileDelegate">The number of invokations on which the delegate will be compiled.</param>
+        public WeakEventSource(int invokationsToCompileDelegate = 4) {
             if (!typeof (TEventHandler).IsSubclassOf(typeof (Delegate)))
                 throw new ArgumentException("T must be a delegate type.");
             var invoke = typeof (TEventHandler).GetMethod("Invoke");
@@ -41,14 +42,17 @@
                 throw new ArgumentException("The second delegate parameter must be derived from type 'EventArgs'.");
             if (invoke.ReturnType != typeof (void))
                 throw new ArgumentException("The delegate return type must be void.");
+
+            if (invokationsToCompileDelegate <= 0)
+                throw new ArgumentOutOfRangeException("invokationsToCompileDelegate", "Value must be greater than zero.");
+            this.invokationsToCompileDelegate = invokationsToCompileDelegate;
         }
 
         private void RemoveDeadEntries() {
             for (var i = eventHandlerEntries.Count - 1; i >= 0; i--) {
                 var entry = eventHandlerEntries[i];
-                if (entry.TargetReference != null && !entry.TargetReference.IsAlive) {
+                if (entry.TargetReference != null && !entry.TargetReference.IsAlive)
                     eventHandlerEntries.RemoveAt(i);
-                }
             }
         }
 
@@ -60,14 +64,17 @@
             if (eh == null) return;
             var d = (Delegate) (object) eh;
 
-            if (d.GetMethodInfo().DeclaringType.GetCustomAttributes(typeof (CompilerGeneratedAttribute), false).Length != 0)
+            var declaringType = d.GetMethodInfo().DeclaringType;
+            if (declaringType != null && declaringType.GetCustomAttributes(typeof (CompilerGeneratedAttribute), false).Length != 0)
                 throw new ArgumentException("Cannot create weak event to anonymous method with closure.");
 
-            if (eventHandlerEntries.Count == eventHandlerEntries.Capacity)
-                RemoveDeadEntries();
+            lock (eventHandlerEntries) {
+                if (eventHandlerEntries.Count == eventHandlerEntries.Capacity)
+                    RemoveDeadEntries();
 
-            var target = d.Target != null ? new WeakReference(d.Target) : null;
-            eventHandlerEntries.Add(new EventHandlerEntry(d.GetMethodInfo(), target));
+                var target = d.Target != null ? new WeakReference(d.Target) : null;
+                eventHandlerEntries.Add(new EventHandlerEntry(d.GetMethodInfo(), target));
+            }
         }
 
         /// <summary>
@@ -77,14 +84,16 @@
         public void Remove(TEventHandler eh) {
             if (eh == null) return;
             var d = (Delegate) (object) eh;
-            
-            for (var i = eventHandlerEntries.Count - 1; i >= 0; i--) {
-                var entry = eventHandlerEntries[i];
-                var target = entry.TargetReference != null ? entry.TargetReference.Target : null;
 
-                if (target == d.Target && ReferenceEquals(entry.TargetMethod, d.GetMethodInfo())) {
-                    eventHandlerEntries.RemoveAt(i);
-                    break;
+            lock (eventHandlerEntries) {
+                for (var i = eventHandlerEntries.Count - 1; i >= 0; i--) {
+                    var entry = eventHandlerEntries[i];
+                    var target = entry.TargetReference != null ? entry.TargetReference.Target : null;
+
+                    if (target == d.Target && ReferenceEquals(entry.TargetMethod, d.GetMethodInfo())) {
+                        eventHandlerEntries.RemoveAt(i);
+                        break;
+                    }
                 }
             }
         }
@@ -97,26 +106,37 @@
         public void Raise(object sender, EventArgs e) {
             var needsCleanup = false;
             var parameters = new[] {sender, e};
-            var invocationList = eventHandlerEntries.ToArray();
+
+            EventHandlerEntry[] invocationList;
+            lock (eventHandlerEntries) {
+                invocationList = eventHandlerEntries.ToArray();
+            }
 
             for (var i = 0; i < invocationList.Length; i++) {
                 var entry = invocationList[i];
-                if (entry.TargetReference != null) {
-                    var target = entry.TargetReference.Target;
-                    if (target != null) {
-                        entry.TargetMethod.Invoke(target, parameters);
-                    }
-                    else {
-                        needsCleanup = true;
-                    }
+                var target = entry.TargetReference != null ? entry.TargetReference.Target : null;
+
+                if (entry.TargetReference != null && target == null) {
+                    needsCleanup = true;
                 }
                 else {
-                    entry.TargetMethod.Invoke(null, parameters);
+                    if (entry.FastCall == null) {
+                        entry.CallCount++;
+                        if (entry.CallCount >= invokationsToCompileDelegate)
+                            entry.FastCall = ReflectionHelper.CreateEventHandler(entry.TargetMethod);
+                    }
+
+                    if (entry.FastCall != null)
+                        entry.FastCall(target, sender, e);
+                    else
+                        entry.TargetMethod.Invoke(target, parameters);
                 }
             }
 
             if (needsCleanup)
-                RemoveDeadEntries();
+                lock (eventHandlerEntries) {
+                    RemoveDeadEntries();
+                }
         }
     }
 }
