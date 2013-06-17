@@ -10,7 +10,7 @@
     public class ActionCommand : ICommand {
         readonly ActionExecutionContext context;
         readonly WeakEventSource<EventHandler> canExecuteChangedSource = new WeakEventSource<EventHandler>();
-        const string GuardNameKey = "guardName";
+        readonly string guardName;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ActionCommand"/> class.
@@ -25,33 +25,34 @@
             if (method == null)
                 throw new ArgumentException(@"Specified method cannot be found.", "methodName");
 
+            guardName = "Can" + method.Name;
             context = new ActionExecutionContext {
                 Target = target,
                 Method = method,
             };
 
-            var inpc = context.Target as INotifyPropertyChanged;
-            var guardName = "Can" + context.Method.Name;
-            var targetType = context.Target.GetType();
-            var guard = targetType.GetMethod("get_" + guardName);
+            var guard = target.GetType().GetMethod("get_" + guardName);
+            var inpc = target as INotifyPropertyChanged;
             if (inpc == null || guard == null) return;
 
-            context[GuardNameKey] = guardName;
-            WeakEventHandler.Register<PropertyChangedEventHandler, PropertyChangedEventArgs, ActionCommand>(
-                 h => ((INotifyPropertyChanged)context.Target).PropertyChanged += h,
-                 h => ((INotifyPropertyChanged)context.Target).PropertyChanged -= h,
-                 this,
-                 (t, s, e) => t.OnPropertyChanged(s, e),
-                 h => new PropertyChangedEventHandler(h)
-                );
-
+            RegisterPropertyChanged(this, inpc);
             context.CanExecute = () => (bool)guard.Invoke(context.Target, new object[0]);
         }
 
         void OnPropertyChanged(object sender, PropertyChangedEventArgs e) {
-            if (string.IsNullOrEmpty(e.PropertyName) || e.PropertyName == (string)context[GuardNameKey]) {
+            if (string.IsNullOrEmpty(e.PropertyName) || e.PropertyName == guardName) {
                 Micro.Execute.OnUIThread(() => canExecuteChangedSource.Raise(this, EventArgs.Empty));
             }
+        }
+
+        static void RegisterPropertyChanged(ActionCommand cmd, INotifyPropertyChanged inpc) {
+            WeakEventHandler.Register<PropertyChangedEventHandler, PropertyChangedEventArgs, ActionCommand>(
+                h => inpc.PropertyChanged += h,
+                h => inpc.PropertyChanged -= h,
+                cmd,
+                (t, s, e) => t.OnPropertyChanged(s, e),
+                h => new PropertyChangedEventHandler(h)
+                );
         }
 
         /// <summary>
