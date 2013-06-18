@@ -9,17 +9,18 @@
         /// <summary>
         /// Gets or sets the IoC container.
         /// </summary>
-        public PhoneContainer Container { get; set; }
+        public IPhoneContainer Container { get; set; }
 
         /// <summary>
         /// Initializes the module.
         /// </summary>
         public virtual void Initialize() {
-            if (Container == null)
+            var phoneContainer = Container as PhoneContainer;
+            if (phoneContainer == null)
                 throw new InvalidOperationException("Container has to be initialized.");
 
-            ConfigureStorageMechanismsAndWorkers(Container);
-            Configure(Container);
+            ConfigureStorageMechanismsAndWorkers(phoneContainer);
+            Configure(phoneContainer);
         }
 
         /// <summary>
@@ -33,7 +34,7 @@
         /// Since the purpose of this bootstrapper is to allow the delayed loading of assemblies, it makes sense to locate
         /// the storage handlers alongside the view models in the same assembly. 
         /// </remarks>
-        private void ConfigureStorageMechanismsAndWorkers(PhoneContainer phoneContainer) {
+        private void ConfigureStorageMechanismsAndWorkers(SimpleContainer phoneContainer) {
             var coordinator = (StorageCoordinator) (phoneContainer.GetInstance(typeof (StorageCoordinator), null));
             var assembly = GetType().Assembly;
 
