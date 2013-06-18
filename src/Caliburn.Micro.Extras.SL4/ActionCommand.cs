@@ -35,7 +35,8 @@
             var inpc = target as INotifyPropertyChanged;
             if (inpc == null || guard == null) return;
 
-            RegisterPropertyChanged(this, inpc);
+
+            WeakEventHandler.RegisterPropertyChanged(inpc, this, (t, s, e) => t.OnPropertyChanged(s, e));
             context.CanExecute = () => (bool)guard.Invoke(context.Target, new object[0]);
         }
 
@@ -43,16 +44,6 @@
             if (string.IsNullOrEmpty(e.PropertyName) || e.PropertyName == guardName) {
                 Micro.Execute.OnUIThread(() => canExecuteChangedSource.Raise(this, EventArgs.Empty));
             }
-        }
-
-        static void RegisterPropertyChanged(ActionCommand cmd, INotifyPropertyChanged inpc) {
-            WeakEventHandler.Register<PropertyChangedEventHandler, PropertyChangedEventArgs, ActionCommand>(
-                h => inpc.PropertyChanged += h,
-                h => inpc.PropertyChanged -= h,
-                cmd,
-                (t, s, e) => t.OnPropertyChanged(s, e),
-                h => new PropertyChangedEventHandler(h)
-                );
         }
 
         /// <summary>

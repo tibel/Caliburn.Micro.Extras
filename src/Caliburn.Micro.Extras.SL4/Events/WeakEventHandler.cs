@@ -1,5 +1,6 @@
 ﻿namespace Caliburn.Micro.Extras {
     using System;
+    using System.ComponentModel;
     using System.Diagnostics.CodeAnalysis;
 #if WinRT
     using System.Reflection;
@@ -123,6 +124,28 @@
             where TEventListener : class {
             return Register(registerEvent,
                             deregisterEvent, listeningObject, forwardAction, h => h);
+        }
+
+
+        /// <summary>
+        /// Registers  a weak event handler on property changed event.
+        /// </summary>
+        /// <typeparam name="TEventListener">The type of the event listener.</typeparam>
+        /// <param name="source">The event source.</param>
+        /// <param name="listeningObject">The listening object.</param>
+        /// <param name="forwardAction">The forward action.</param>
+        public static void RegisterPropertyChanged<TEventListener>(INotifyPropertyChanged source,
+                                                                    TEventListener listeningObject,
+                                                                    Action<TEventListener, object, PropertyChangedEventArgs> forwardAction)
+            where TEventListener : class
+        {
+            Register(
+                h => source.PropertyChanged += h,
+                h => source.PropertyChanged -= h,
+                listeningObject,
+                forwardAction,
+                h => new PropertyChangedEventHandler(h)
+                );
         }
     }
 }
