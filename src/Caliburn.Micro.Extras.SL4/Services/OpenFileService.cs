@@ -1,7 +1,6 @@
 ﻿namespace Caliburn.Micro.Extras {
     using System.Collections.Generic;
     using System.IO;
-
 #if SILVERLIGHT
     using System.Windows.Controls;
 #else

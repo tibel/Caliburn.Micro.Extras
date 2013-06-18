@@ -1,5 +1,5 @@
 ﻿using Caliburn.Micro;
-using Caliburn.Micro.Extras.ExternalModules;
+using Caliburn.Micro.Extras;
 
 namespace Samples.HelloWP71.Module2
 {

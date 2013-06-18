@@ -26,14 +26,14 @@
     /// </example>
     [SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
     public class WeakEventHandler : IDisposable {
-        private readonly WeakReference listeningReference;
-        private Action deregisterCode;
+        readonly WeakReference listeningReference;
+        Action deregisterCode;
 
-        private WeakEventHandler(object listeningObject) {
+        WeakEventHandler(object listeningObject) {
             listeningReference = new WeakReference(listeningObject);
         }
 
-        private TEventHandler MakeDeregisterCodeAndWeakEventHandler
+        TEventHandler MakeDeregisterCodeAndWeakEventHandler
             <TEventHandler, TEventArgs, TEventListener>
             (
             Func<EventHandler<TEventArgs>, TEventHandler> convert,
@@ -73,7 +73,7 @@
             }
         }
 
-        private static void VerifyDelegate(Delegate d, string parameterName) {
+        static void VerifyDelegate(Delegate d, string parameterName) {
             if (d == null)
                 throw new ArgumentNullException(parameterName);
             if (!d.GetMethodInfo().IsStatic)

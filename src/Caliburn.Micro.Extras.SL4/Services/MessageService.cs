@@ -2,7 +2,6 @@
     using System;
     using System.Linq;
     using System.Windows;
-
 #if !SILVERLIGHT || SL5 || WP8
     using System.Threading.Tasks;
 #endif

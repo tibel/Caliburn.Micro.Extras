@@ -5,7 +5,7 @@
     /// A result that executes an <see cref="System.Action"/>.
     /// </summary>
     public class DelegateResult : IResult {
-        private readonly Action toExecute;
+        readonly Action toExecute;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DelegateResult"/> class.
@@ -35,13 +35,17 @@
         public event EventHandler<ResultCompletionEventArgs> Completed = delegate { };
     }
 
-#if !SILVERLIGHT || SL5 || WP8
     /// <summary>
     /// A result that executes a <see cref="System.Func&lt;TResult&gt;"/>
     /// </summary>
     /// <typeparam name="TResult">The type of the result.</typeparam>
-    public class DelegateResult<TResult> : IResult<TResult> {
-        private readonly Func<TResult> toExecute;
+    public class DelegateResult<TResult> :
+#if !SILVERLIGHT || SL5 || WP8
+        IResult<TResult> {
+#else
+        IResult {
+#endif
+        readonly Func<TResult> toExecute;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DelegateResult&lt;TResult&gt;"/> class.
@@ -75,5 +79,4 @@
         /// </summary>
         public event EventHandler<ResultCompletionEventArgs> Completed = delegate { };
     }
-#endif
 }

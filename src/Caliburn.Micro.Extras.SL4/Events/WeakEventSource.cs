@@ -9,7 +9,7 @@
     /// </summary>
     /// <typeparam name="TEventHandler">The type of the event handler.</typeparam>
     public class WeakEventSource<TEventHandler> where TEventHandler : class {
-        private class EventHandlerEntry {
+        class EventHandlerEntry {
             public readonly MethodInfo TargetMethod;
             public readonly WeakReference TargetReference;
             public int CallCount;
@@ -21,8 +21,8 @@
             }
         }
 
-        private readonly int invokationsToCompileDelegate;
-        private readonly List<EventHandlerEntry> eventHandlerEntries = new List<EventHandlerEntry>();
+        readonly int invokationsToCompileDelegate;
+        readonly List<EventHandlerEntry> eventHandlerEntries = new List<EventHandlerEntry>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WeakEventSource&lt;T&gt;"/> class.
@@ -48,7 +48,7 @@
             this.invokationsToCompileDelegate = invokationsToCompileDelegate;
         }
 
-        private void RemoveDeadEntries() {
+        void RemoveDeadEntries() {
             for (var i = eventHandlerEntries.Count - 1; i >= 0; i--) {
                 var entry = eventHandlerEntries[i];
                 if (entry.TargetReference != null && !entry.TargetReference.IsAlive)

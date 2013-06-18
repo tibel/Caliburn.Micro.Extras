@@ -89,6 +89,9 @@
     <Compile Include="..\Caliburn.Micro.Extras.SL4\Events\WeakEventSource.cs">
       <Link>Events\WeakEventSource.cs</Link>
     </Compile>
+    <Compile Include="..\Caliburn.Micro.Extras.SL4\ModuleConventions.cs">
+      <Link>ModuleConventions.cs</Link>
+    </Compile>
     <Compile Include="..\Caliburn.Micro.Extras.SL4\ResultExtensions.cs">
       <Link>ResultExtensions.cs</Link>
     </Compile>

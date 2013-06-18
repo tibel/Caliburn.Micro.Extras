@@ -8,7 +8,7 @@ namespace Caliburn.Micro.Extras {
     ///   A simple logger thats logs everything to the debugger.
     /// </summary>
     public class DebugLogger : ILog {
-        private readonly string typeName;
+        readonly string typeName;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DebugLogger"/> class.

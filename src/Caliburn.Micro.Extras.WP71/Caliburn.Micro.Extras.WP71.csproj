@@ -92,6 +92,9 @@
     <Compile Include="..\Caliburn.Micro.Extras.SL4\Events\WeakEventSource.cs">
       <Link>Events\WeakEventSource.cs</Link>
     </Compile>
+    <Compile Include="..\Caliburn.Micro.Extras.SL4\ModuleConventions.cs">
+      <Link>ModuleConventions.cs</Link>
+    </Compile>
     <Compile Include="..\Caliburn.Micro.Extras.SL4\ResultExtensions.cs">
       <Link>ResultExtensions.cs</Link>
     </Compile>
@@ -113,9 +116,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="ExternalModules\IoCExtensions.cs" />
-    <Compile Include="ExternalModules\ModuleBootstrapper.cs" />
-    <Compile Include="ExternalModules\ModuleConventions.cs" />
+    <Compile Include="ModuleBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

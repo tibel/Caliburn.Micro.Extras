@@ -1,17 +1,6 @@
-﻿using System;
-
-namespace Caliburn.Micro.Extras.ExternalModules {
+﻿namespace Caliburn.Micro.Extras {
+    using System;
     using System.Linq;
-
-    /// <summary>
-    /// Interface for module bootstrappers.
-    /// </summary>
-    public interface IModuleBootstrapper {
-        /// <summary>
-        /// Initializes the module.
-        /// </summary>
-        void Initialize();
-    }
 
     /// <summary>
     /// Base class for all module bootstrappers.
@@ -20,18 +9,17 @@ namespace Caliburn.Micro.Extras.ExternalModules {
         /// <summary>
         /// Gets or sets the IoC container.
         /// </summary>
-        public IPhoneContainer Container { get; set; }
+        public PhoneContainer Container { get; set; }
 
         /// <summary>
         /// Initializes the module.
         /// </summary>
         public virtual void Initialize() {
-            var phoneContainer = Container as PhoneContainer;
-            if (phoneContainer == null)
+            if (Container == null)
                 throw new InvalidOperationException("Container has to be initialized.");
 
-            ConfigureStorageMechanismsAndWorkers(phoneContainer);
-            Configure(phoneContainer);
+            ConfigureStorageMechanismsAndWorkers(Container);
+            Configure(Container);
         }
 
         /// <summary>

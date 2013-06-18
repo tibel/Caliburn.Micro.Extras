@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace Caliburn.Micro.Extras {
+    using System;
+    using System.Collections.Generic;
 
-namespace Caliburn.Micro.Extras {
     /// <summary>
     /// A result decorator which executes a coroutine when the wrapped result was cancelled.
     /// </summary>

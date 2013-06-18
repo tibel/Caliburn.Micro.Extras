@@ -88,6 +88,7 @@
     <Compile Include="EventAggregatorExtensions.cs" />
     <Compile Include="Events\ReflectionHelper.cs" />
     <Compile Include="Events\WeakEventHandler.cs" />
+    <Compile Include="ModuleConventions.cs" />
     <Compile Include="ResultExtensions.cs" />
     <Compile Include="Results\CancelResult.cs" />
     <Compile Include="Results\DelegateResult.cs" />

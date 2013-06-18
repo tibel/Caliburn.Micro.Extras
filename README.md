@@ -17,5 +17,5 @@ The extras are available through NuGet:
 * `EventAggregatorExtensions` to publish messages on different Threads
 * `IMessageService` to show a message box from the ViewModel
 * `IOpenFileService` and `ISaveFileSerivce` to show select a file from the ViewModel
-* `ResultExtensions` to get more out of Coroutines (_WhenCancelled_, _OverrideCancel_ and _Rescue_)
-* [WP71] and [WP8] Module level bootstrappers (inspired by [Splitting Application to Multiple Assemblies when using Caliburn.Micro](http://mikaelkoskinen.net/post/windows-phone-caliburn-micro-split-app-multiple-assemblies.aspx))
+* `ResultExtensions` to get more out of Coroutines ( _WhenCancelled_, _OverrideCancel_ and _Rescue_ )
+* Module level bootstrappers (inspired by [Splitting Application to Multiple Assemblies when using Caliburn.Micro](http://mikaelkoskinen.net/post/windows-phone-caliburn-micro-split-app-multiple-assemblies.aspx))
