@@ -9,13 +9,31 @@ The extras are available through NuGet:
 **Install-Package** [Caliburn.Micro.Extras](https://www.nuget.org/packages/Caliburn.Micro.Extras/)
 
 ## Content
-* `ActionCommand` to use Caliburn.Micro _Actions_ with `ICommand`
-* `WeakEventHandler` to use a weak reference when registering to an event
-* `WeakEventSource` to implement a weak event 
-* [Win8] `IWindowManager` for displaying normal dialogs all around the screen
 * `DebugLogger` to see Caliburn.Micro logging output in Visual Studio
+* `ActionCommand` to use Caliburn.Micro _Actions_ with `ICommand`
+* [Win8] `IWindowManager` for displaying normal dialogs all around the screen
 * `EventAggregatorExtensions` to publish messages on different Threads
+
+### Services
 * `IMessageService` to show a message box from the ViewModel
-* `IOpenFileService` and `ISaveFileSerivce` to show select a file from the ViewModel
-* `ResultExtensions` to get more out of Coroutines ( _WhenCancelled_, _OverrideCancel_ and _Rescue_ )
+* `IOpenFileService` wraps an OpenFileDialog 
+* `ISaveFileSerivce` wraps a SaveFileDialog
+
+### IResult Implementations
+* `CancelResult` always returns WasCancelled=true
+* `DelegateResult` wraps an arbitrary Action or Func<TResult>
+* `MessengerResult` wraps a MessageBox
+* `OpenFileResult` wraps an OpenFileDialog with fluent configuration
+* `SaveFileResult` wraps a SaveFileDialog with fluent configuration
+
+### IResult Extensions
+* `Rescue<TException>()` decorates the result with an error handler which is executed when an error occurs
+* `WhenChancelled()` decorates the result with an handler which is executed when the result was cancelled
+* `OverrideCancel()` decorates the result and overrides WasCancelled=false
+
+### Weak Events
+* `WeakEventHandler` to use a weak reference when registering to an event
+* `WeakEventSource` to implement a weak event
+
+### Conventions
 * Module level bootstrappers (inspired by [Splitting Application to Multiple Assemblies when using Caliburn.Micro](http://mikaelkoskinen.net/post/windows-phone-caliburn-micro-split-app-multiple-assemblies.aspx))
