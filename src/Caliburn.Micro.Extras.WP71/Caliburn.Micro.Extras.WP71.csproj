@@ -68,6 +68,9 @@
     <Compile Include="..\Caliburn.Micro.Extras.SL4\ActionCommand.cs">
       <Link>ActionCommand.cs</Link>
     </Compile>
+    <Compile Include="..\Caliburn.Micro.Extras.SL4\ContentHost.cs">
+      <Link>ContentHost.cs</Link>
+    </Compile>
     <Compile Include="..\Caliburn.Micro.Extras.SL4\DebugLogger.cs">
       <Link>DebugLogger.cs</Link>
     </Compile>
