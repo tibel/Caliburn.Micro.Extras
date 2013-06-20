@@ -37,3 +37,4 @@ The extras are available through NuGet:
 
 ### Conventions
 * Module level bootstrappers (inspired by [Splitting Application to Multiple Assemblies when using Caliburn.Micro](http://mikaelkoskinen.net/post/windows-phone-caliburn-micro-split-app-multiple-assemblies.aspx))
+* `ContentHost` control (inspired by [Fast switching between ViewModels in Caliburn.Micro](http://www.baud.cz/blog/fast-switching-between-viewmodels-in-caliburn.micro)
