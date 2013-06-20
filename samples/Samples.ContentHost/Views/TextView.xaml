@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="Samples.ContentHost.Views.TextView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300" d:DesignWidth="400">
+    
+    <Grid x:Name="LayoutRoot" Background="White">
+		<StackPanel>
+			<TextBlock>1. Use the Switch to next button to switch between opened tabs.</TextBlock>
+			<TextBlock>2. Add 5 more tabs by clicking Add Tab.</TextBlock>
+			<TextBlock>3. Once you go through all of the tabs with Switch to next, note the following:</TextBlock>
+			<TextBlock Margin="12 0 0 0">a) switching between empty tabs takes the same amount of time</TextBlock>
+			<TextBlock Margin="12 0 0 0">b) switching between tabs with DataGrid takes almost the same time</TextBlock>
+			<TextBlock Margin="12 0 0 0">c) switching from a DataGrid tab to an empty tab is not as fast as from empty tabs</TextBlock>
+			<TextBlock>4. Add 5 more tabs by clicking Add Tab.</TextBlock>
+			<TextBlock>5. Note how changing between DataGrid tabs takes longer time after new tabs have been opened.</TextBlock>
+			<TextBlock>6. Repeat steps 4 and 5.</TextBlock>
+			<TextBlock Margin="0 6 0 0" TextWrapping="Wrap">Why creating more DataGrids slows down changing between other completely independent tabs?</TextBlock>
+		</StackPanel>
+	</Grid>
+</UserControl>
