@@ -1,5 +1,6 @@
 ﻿namespace Caliburn.Micro.Extras {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
     using System.Reflection;
@@ -40,6 +41,10 @@
 
         public static Attribute[] GetCustomAttributes(this Type t, Type attributeType, bool inherit) {
             return t.GetTypeInfo().GetCustomAttributes(attributeType, inherit).ToArray();
+        }
+
+        public static IEnumerable<PropertyInfo> GetProperties(this Type t) {
+            return t.GetRuntimeProperties();
         }
 #endif
     }

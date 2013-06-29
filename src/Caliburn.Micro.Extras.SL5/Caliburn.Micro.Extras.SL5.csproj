@@ -61,16 +61,20 @@
       <HintPath>..\..\packages\Caliburn.Micro.1.5.2\lib\sl5\Caliburn.Micro.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
+    <Reference Include="System.ComponentModel.DataAnnotations, Version=5.0.5.0, Culture=neutral, PublicKeyToken=ddd0da4d3e678217, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core">
       <HintPath>$(TargetFrameworkDirectory)System.Core.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Controls, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System.Windows.Interactivity, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Caliburn.Micro.1.5.2\lib\sl5\System.Windows.Interactivity.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Net" />
@@ -148,6 +152,12 @@
     </Compile>
     <Compile Include="..\Caliburn.Micro.Extras.SL4\Services\SaveFileService.cs">
       <Link>Services\SaveFileService.cs</Link>
+    </Compile>
+    <Compile Include="..\Caliburn.Micro.Extras.SL4\Validation\DataAnnotationsValidator.cs">
+      <Link>Validation\DataAnnotationsValidator.cs</Link>
+    </Compile>
+    <Compile Include="..\Caliburn.Micro.Extras.SL4\Validation\DataErrorInfoAdapter.cs">
+      <Link>Validation\DataErrorInfoAdapter.cs</Link>
     </Compile>
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>

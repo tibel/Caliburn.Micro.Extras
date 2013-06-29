@@ -164,6 +164,9 @@
     <Compile Include="..\Caliburn.Micro.Extras.SL4\Services\MessageService.cs">
       <Link>Services\MessageService.cs</Link>
     </Compile>
+    <Compile Include="..\Caliburn.Micro.Extras.SL4\Validation\DataAnnotationsValidator.cs">
+      <Link>Validation\DataAnnotationsValidator.cs</Link>
+    </Compile>
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>

@@ -14,6 +14,11 @@
     <releaseNotes>Support ExternalModules on all platforms</releaseNotes>
     <copyright>Copyright 2013</copyright>
     <tags>Caliburn MVVM Silverlight WPF WP7 WP71 WP8 WinRT Metro SL SL4 SL5 Convention Screen Coroutine Behavior Model-View-ViewModel Presentation UI ViewModel Phone</tags>
+
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.ComponentModel.DataAnnotations" targetFramework="sl4, sl5" />
+    </frameworkAssemblies>
+    
     <dependencies>
       <group>
         <dependency id="Caliburn.Micro" version="1.5.2" />
