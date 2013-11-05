@@ -3,7 +3,7 @@
   <metadata>
     <id>Caliburn.Micro.Extras</id>
     <title>Caliburn.Micro Extras</title>
-    <version>1.0.6</version>
+    <version>2.0.0-alpha</version>
     <authors>Thomas Ibel</authors>
     <description>Some additions to Caliburn.Micro framework.</description>
     <language>en-US</language>
@@ -12,11 +12,11 @@
     <iconUrl>https://raw.github.com/tibel/Caliburn.Micro.Extras/master/build/Icon_dialog.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <releaseNotes>add ContentHost control</releaseNotes>
-    <copyright>Copyright 2013</copyright>
+    <copyright>Copyright Thomas Ibel 2013</copyright>
     <tags>Caliburn MVVM Silverlight WPF WP7 WP71 WP8 WinRT Metro SL SL4 SL5 Convention Screen Coroutine Behavior Model-View-ViewModel Presentation UI ViewModel Phone</tags>
 
     <frameworkAssemblies>
-      <frameworkAssembly assemblyName="System.ComponentModel.DataAnnotations" targetFramework="sl4, sl5" />
+      <frameworkAssembly assemblyName="System.ComponentModel.DataAnnotations" targetFramework="sl5" />
     </frameworkAssemblies>
     
     <dependencies>
@@ -29,10 +29,8 @@
   <files>
     <file src="..\bin\net40\Caliburn.Micro.Extras.*" target="lib\net40" />
     <file src="..\bin\net45\Caliburn.Micro.Extras.*" target="lib\net45" />
-    <file src="..\bin\sl4\Caliburn.Micro.Extras.*" target="lib\sl4" />
     <file src="..\bin\sl5\Caliburn.Micro.Extras.*" target="lib\sl5" />
     <file src="..\bin\winrt45\Caliburn.Micro.Extras.*" target="lib\win8" />
-    <file src="..\bin\wp71\Caliburn.Micro.Extras.*" target="lib\wp71" />
     <file src="..\bin\wp8\Caliburn.Micro.Extras.*" target="lib\wp8" />
   </files>
 </package>

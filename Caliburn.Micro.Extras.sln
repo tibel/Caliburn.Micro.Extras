@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caliburn.Micro.Extras.SL4", "src\Caliburn.Micro.Extras.SL4\Caliburn.Micro.Extras.SL4.csproj", "{4D40880A-DB01-45EB-9FA7-D5CE644B0E41}"
-EndProject
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caliburn.Micro.Extras.SL5", "src\Caliburn.Micro.Extras.SL5\Caliburn.Micro.Extras.SL5.csproj", "{8713EA03-349B-4F02-A9BF-4A666905258D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caliburn.Micro.Extras.WP71", "src\Caliburn.Micro.Extras.WP71\Caliburn.Micro.Extras.WP71.csproj", "{06260443-3F88-458A-A1C0-F706ECE9BCB6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caliburn.Micro.Extras.WP8", "src\Caliburn.Micro.Extras.WP8\Caliburn.Micro.Extras.WP8.csproj", "{C57E3EA3-C49F-461F-BCDD-FED1B03F17FD}"
 EndProject
@@ -54,16 +52,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4D40880A-DB01-45EB-9FA7-D5CE644B0E41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4D40880A-DB01-45EB-9FA7-D5CE644B0E41}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4D40880A-DB01-45EB-9FA7-D5CE644B0E41}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{4D40880A-DB01-45EB-9FA7-D5CE644B0E41}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{4D40880A-DB01-45EB-9FA7-D5CE644B0E41}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{4D40880A-DB01-45EB-9FA7-D5CE644B0E41}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4D40880A-DB01-45EB-9FA7-D5CE644B0E41}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4D40880A-DB01-45EB-9FA7-D5CE644B0E41}.Release|ARM.ActiveCfg = Release|Any CPU
-		{4D40880A-DB01-45EB-9FA7-D5CE644B0E41}.Release|x64.ActiveCfg = Release|Any CPU
-		{4D40880A-DB01-45EB-9FA7-D5CE644B0E41}.Release|x86.ActiveCfg = Release|Any CPU
 		{8713EA03-349B-4F02-A9BF-4A666905258D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8713EA03-349B-4F02-A9BF-4A666905258D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8713EA03-349B-4F02-A9BF-4A666905258D}.Debug|ARM.ActiveCfg = Debug|Any CPU
@@ -74,16 +62,6 @@ Global
 		{8713EA03-349B-4F02-A9BF-4A666905258D}.Release|ARM.ActiveCfg = Release|Any CPU
 		{8713EA03-349B-4F02-A9BF-4A666905258D}.Release|x64.ActiveCfg = Release|Any CPU
 		{8713EA03-349B-4F02-A9BF-4A666905258D}.Release|x86.ActiveCfg = Release|Any CPU
-		{06260443-3F88-458A-A1C0-F706ECE9BCB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{06260443-3F88-458A-A1C0-F706ECE9BCB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{06260443-3F88-458A-A1C0-F706ECE9BCB6}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{06260443-3F88-458A-A1C0-F706ECE9BCB6}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{06260443-3F88-458A-A1C0-F706ECE9BCB6}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{06260443-3F88-458A-A1C0-F706ECE9BCB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{06260443-3F88-458A-A1C0-F706ECE9BCB6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{06260443-3F88-458A-A1C0-F706ECE9BCB6}.Release|ARM.ActiveCfg = Release|Any CPU
-		{06260443-3F88-458A-A1C0-F706ECE9BCB6}.Release|x64.ActiveCfg = Release|Any CPU
-		{06260443-3F88-458A-A1C0-F706ECE9BCB6}.Release|x86.ActiveCfg = Release|Any CPU
 		{C57E3EA3-C49F-461F-BCDD-FED1B03F17FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C57E3EA3-C49F-461F-BCDD-FED1B03F17FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C57E3EA3-C49F-461F-BCDD-FED1B03F17FD}.Debug|ARM.ActiveCfg = Debug|ARM
