@@ -99,7 +99,6 @@
         MessageResult Show(string message, string caption = "", MessageButton button = MessageButton.OK,
                            MessageImage icon = MessageImage.None);
 
-#if !SILVERLIGHT || SL5 || WP8
         /// <summary>
         /// Shows the specified message and allows to await for the message to complete.
         /// </summary>
@@ -111,6 +110,5 @@
         System.Threading.Tasks.Task<MessageResult> ShowAsync(string message, string caption = "",
                                                              MessageButton button = MessageButton.OK,
                                                              MessageImage icon = MessageImage.None);
-#endif
     }
 }

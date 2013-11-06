@@ -8,12 +8,7 @@
     /// A Caliburn.Micro Result that lets you open a file.
     /// </summary>
     /// <typeparam name="TResult">The type of the result.</typeparam>
-    public abstract class OpenFileResult<TResult> :
-#if !SILVERLIGHT || SL5 || WP8
-        IResult<TResult> {
-#else
-        IResult {
-#endif
+    public abstract class OpenFileResult<TResult> : IResult<TResult> {
 
         readonly bool multiselect;
         readonly string title;

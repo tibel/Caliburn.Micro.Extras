@@ -1,7 +1,5 @@
 ﻿namespace Caliburn.Micro.Extras {
-#if !SILVERLIGHT || SL5 || WP8
     using System.Threading.Tasks;
-#endif
 
     /// <summary>
     /// Extensions for <see cref="IEventAggregator"/>.
@@ -22,11 +20,7 @@
         /// <param name="eventAggregator">The event aggregator.</param>
         /// <param name = "message">The message instance.</param>
         public static void PublishOnBackgroundThread(this IEventAggregator eventAggregator, object message) {
-#if !SILVERLIGHT || SL5 || WP8
-            eventAggregator.Publish(message, action => System.Threading.Tasks.Task.Factory.StartNew(action));
-#else
-            eventAggregator.Publish(message, action => System.Threading.ThreadPool.QueueUserWorkItem(state => action()));
-#endif
+            eventAggregator.Publish(message, action => Task.Factory.StartNew(action));
         }
 
         /// <summary>
@@ -47,7 +41,6 @@
             eventAggregator.Publish(message, action => action.BeginOnUIThread());
         }
 
-#if !SILVERLIGHT || SL5 || WP8
         /// <summary>
         ///   Publishes a message on the UI thread asynchrone.
         /// </summary>
@@ -58,6 +51,5 @@
             eventAggregator.Publish(message, action => task = action.OnUIThreadAsync());
             return task;
         }
-#endif
     }
 }

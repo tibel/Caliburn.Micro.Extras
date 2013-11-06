@@ -6,12 +6,7 @@
     /// <summary>
     /// A Caliburn.Micro Result that lets you save a file.
     /// </summary>
-    public class SaveFileResult :
-#if !SILVERLIGHT || SL5 || WP8
-        IResult<Stream> {
-#else
-        IResult {
-#endif
+    public class SaveFileResult : IResult<Stream> {
 
         Lazy<Stream> lazyStream;
         readonly string title;

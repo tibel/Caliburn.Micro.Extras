@@ -2,9 +2,7 @@
     using System;
     using System.Linq;
     using System.Windows;
-#if !SILVERLIGHT || SL5 || WP8
     using System.Threading.Tasks;
-#endif
 
     /// <summary>
     /// Message service that implements the <see cref="IMessageService"/> by using the <see cref="MessageBox"/> class.
@@ -57,7 +55,6 @@
 #endif
         }
 
-#if !SILVERLIGHT || SL5 || WP8
         /// <summary>
         /// Shows the specified message and allows to await for the message to complete.
         /// </summary>
@@ -81,7 +78,6 @@
             return taskSource.Task;
 #endif
         }
-#endif
 
 #if WinRT
         static async Task<MessageResult> ShowMessageBox(string message, string caption, MessageButton button, MessageImage icon) {

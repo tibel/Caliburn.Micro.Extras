@@ -5,12 +5,7 @@
     /// <summary>
     /// A Caliburn.Micro Result that lets you show messages.
     /// </summary>
-    public class MessengerResult :
-#if !SILVERLIGHT || SL5 || WP8
-        IResult<MessageResult> {
-#else
-        IResult {
-#endif
+    public class MessengerResult : IResult<MessageResult> {
         readonly string message;
         string caption = "";
         MessageButton button = MessageButton.OK;

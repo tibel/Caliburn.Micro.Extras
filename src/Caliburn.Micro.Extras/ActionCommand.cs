@@ -1,10 +1,9 @@
-﻿using Weakly;
-
-namespace Caliburn.Micro.Extras {
+﻿namespace Caliburn.Micro.Extras {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Windows.Input;
+    using Weakly;
 
     /// <summary>
     /// Wraps a ViewModel method (with guard) in an <see cref="ICommand"/>.
@@ -38,7 +37,7 @@ namespace Caliburn.Micro.Extras {
             if (inpc == null || guard == null) return;
 
             WeakEventHandler.Register<PropertyChangedEventArgs>(inpc, "PropertyChanged", OnPropertyChanged);
-            context.CanExecute = () => (bool)guard.Invoke(context.Target, new object[0]);
+            context.CanExecute = new WeakFunc<bool>(inpc, guard).Invoke;
         }
 
         void OnPropertyChanged(object sender, PropertyChangedEventArgs e) {
@@ -52,14 +51,13 @@ namespace Caliburn.Micro.Extras {
         /// </summary>
         /// <param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to null.</param>
         public void Execute(object parameter) {
-            var returnValue = context.Method.Invoke(context.Target, new object[0]);
+            var method = DynamicDelegate.From(context.Method);
+            var returnValue = method(context.Target, new object[0]);
 
-#if !SILVERLIGHT || SL5 || WP8
             var task = returnValue as System.Threading.Tasks.Task;
             if (task != null) {
                 returnValue = task.AsResult();
             }
-#endif
 
             var result = returnValue as IResult;
             if (result != null) {

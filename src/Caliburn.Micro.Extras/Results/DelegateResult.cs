@@ -39,12 +39,7 @@
     /// A result that executes a <see cref="System.Func&lt;TResult&gt;"/>
     /// </summary>
     /// <typeparam name="TResult">The type of the result.</typeparam>
-    public class DelegateResult<TResult> :
-#if !SILVERLIGHT || SL5 || WP8
-        IResult<TResult> {
-#else
-        IResult {
-#endif
+    public class DelegateResult<TResult> : IResult<TResult> {
         readonly Func<TResult> toExecute;
 
         /// <summary>
