@@ -1,4 +1,6 @@
-﻿namespace Caliburn.Micro.Extras {
+﻿using Weakly;
+
+namespace Caliburn.Micro.Extras {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -9,7 +11,7 @@
     /// </summary>
     public class ActionCommand : ICommand {
         readonly ActionExecutionContext context;
-        readonly WeakEventSource<EventHandler> canExecuteChangedSource = new WeakEventSource<EventHandler>();
+        readonly WeakEventSource canExecuteChangedSource = new WeakEventSource();
         readonly string guardName;
 
         /// <summary>
@@ -35,8 +37,7 @@
             var inpc = target as INotifyPropertyChanged;
             if (inpc == null || guard == null) return;
 
-
-            WeakEventHandler.RegisterPropertyChanged(inpc, this, (t, s, e) => t.OnPropertyChanged(s, e));
+            WeakEventHandler.Register<PropertyChangedEventArgs>(inpc, "PropertyChanged", OnPropertyChanged);
             context.CanExecute = () => (bool)guard.Invoke(context.Target, new object[0]);
         }
 

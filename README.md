@@ -32,8 +32,7 @@ The extras are available through NuGet:
 * `OverrideCancel()` decorates the result and overrides WasCancelled=false
 
 ### Weak Events
-* `WeakEventHandler` to use a weak reference when registering to an event
-* `WeakEventSource` to implement a weak event
+powered by [Weakly](https://github.com/tibel/Weakly)
 
 ### Conventions
 * Module level bootstrappers (inspired by [Splitting Application to Multiple Assemblies when using Caliburn.Micro](http://mikaelkoskinen.net/post/windows-phone-caliburn-micro-split-app-multiple-assemblies.aspx))
