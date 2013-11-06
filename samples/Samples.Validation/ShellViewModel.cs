@@ -10,6 +10,7 @@ namespace Samples.Validation {
         private readonly Company company;
 
         public ShellViewModel(Company company) {
+            this.validation.Validators.Add(new DataAnnotationsValidator(GetType()));
             this.company = company;
         }
 
@@ -53,25 +54,25 @@ namespace Samples.Validation {
         }
 
         public bool CanSave {
-            get { return validation.Errors.Count == 0; }
+            get { return !validation.HasErrors; }
         }
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = "") {
+            validation.Validate(this);
             NotifyOfPropertyChange(propertyName);
-            validation.Validate(this, propertyName);
-            NotifyOfPropertyChange("CanSave");
+            NotifyOfPropertyChange(() => CanSave);
         }
 
         #region Validation
 
-        private readonly DataErrorInfoAdapter<ShellViewModel> validation = new DataErrorInfoAdapter<ShellViewModel>();
+        private readonly ValidationAdapter validation = new ValidationAdapter();
 
         public string Error {
             get { throw new NotImplementedException(); }
         }
 
         public string this[string columnName] {
-            get { return validation.GetPropertyError(columnName); }
+            get { return string.Join(Environment.NewLine, validation.GetPropertyError(columnName)); }
         }
 
         #endregion

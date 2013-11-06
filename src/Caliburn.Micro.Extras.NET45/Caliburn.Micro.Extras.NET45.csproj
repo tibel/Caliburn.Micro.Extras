@@ -131,8 +131,29 @@
     <Compile Include="..\Caliburn.Micro.Extras\Validation\DataAnnotationsValidator.cs">
       <Link>Validation\DataAnnotationsValidator.cs</Link>
     </Compile>
-    <Compile Include="..\Caliburn.Micro.Extras\Validation\DataErrorInfoAdapter.cs">
-      <Link>Validation\DataErrorInfoAdapter.cs</Link>
+    <Compile Include="..\Caliburn.Micro.Extras\Validation\DynamicGetter.cs">
+      <Link>Validation\DynamicGetter.cs</Link>
+    </Compile>
+    <Compile Include="..\Caliburn.Micro.Extras\Validation\IValidator.cs">
+      <Link>Validation\IValidator.cs</Link>
+    </Compile>
+    <Compile Include="..\Caliburn.Micro.Extras\Validation\RangeValidationRule.cs">
+      <Link>Validation\RangeValidationRule.cs</Link>
+    </Compile>
+    <Compile Include="..\Caliburn.Micro.Extras\Validation\RuleValidator.cs">
+      <Link>Validation\RuleValidator.cs</Link>
+    </Compile>
+    <Compile Include="..\Caliburn.Micro.Extras\Validation\StringLengthValidationRule.cs">
+      <Link>Validation\StringLengthValidationRule.cs</Link>
+    </Compile>
+    <Compile Include="..\Caliburn.Micro.Extras\Validation\ValidationAdapter.cs">
+      <Link>Validation\ValidationAdapter.cs</Link>
+    </Compile>
+    <Compile Include="..\Caliburn.Micro.Extras\Validation\ValidationResult.cs">
+      <Link>Validation\ValidationResult.cs</Link>
+    </Compile>
+    <Compile Include="..\Caliburn.Micro.Extras\Validation\ValidationRule.cs">
+      <Link>Validation\ValidationRule.cs</Link>
     </Compile>
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>

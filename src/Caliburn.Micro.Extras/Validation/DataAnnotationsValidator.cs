@@ -3,85 +3,95 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
-    using System.Linq.Expressions;
     using System.Reflection;
 
     /// <summary>
     /// Helper class to use <see cref="System.ComponentModel.DataAnnotations"/> attributes for validation.
     /// </summary>
-    public static class DataAnnotationsValidator {
-        static class Helpers<TViewModel> {
-            public static readonly Dictionary<string, Func<TViewModel, object>> PropertyGetters =
-                (from p in typeof (TViewModel).GetProperties()
-                 where p.GetAttributes<ValidationAttribute>(true).ToArray().Length != 0
-                 select p
-                ).ToDictionary(p => p.Name, GetValueGetter);
+    public class DataAnnotationsValidator : IValidator {
+        private readonly IDictionary<string, ValidationAttribute[]> validators;
 
-            public static readonly Dictionary<string, ValidationAttribute[]> Validators =
-                (from p in typeof (TViewModel).GetProperties()
-                 let attrs = p.GetAttributes<ValidationAttribute>(true).ToArray()
-                 where attrs.Length != 0
-                 select new KeyValuePair<string, ValidationAttribute[]>(p.Name, attrs)
-                ).ToDictionary(p => p.Key, p => p.Value);
-
-            private static Func<TViewModel, object> GetValueGetter(PropertyInfo property) {
-                var instance = Expression.Parameter(typeof (TViewModel), "i");
-                var cast = Expression.TypeAs(Expression.Property(instance, property), typeof (object));
-                return (Func<TViewModel, object>) Expression.Lambda(cast, instance).Compile();
-            }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataAnnotationsValidator"/> class.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        public DataAnnotationsValidator(Type type) {
+            validators = Cache.GetOrCreate(type);
         }
 
         /// <summary>
-        /// Validates the specified instance.
+        /// Determines whether this instance can validate the specified property.
         /// </summary>
-        /// <typeparam name="TViewModel">The type of the view model.</typeparam>
-        /// <param name="instance">The instance.</param>
-        /// <returns></returns>
-        public static IDictionary<string, IList<string>> Validate<TViewModel>(TViewModel instance) {
-            return Helpers<TViewModel>.PropertyGetters.Keys.ToDictionary(p => p, p => Validate(instance, p));
+        /// <param name="propertyName">Name of the property.</param>
+        /// <returns>
+        /// True, if this instance can validate the property.
+        /// </returns>
+        public bool CanValidateProperty(string propertyName) {
+            return validators.ContainsKey(propertyName);
         }
 
         /// <summary>
         /// Validates the specified property.
         /// </summary>
-        /// <typeparam name="TViewModel">The type of the view model.</typeparam>
-        /// <param name="instance">The instance.</param>
         /// <param name="propertyName">Name of the property.</param>
-        /// <returns></returns>
-        public static IList<string> Validate<TViewModel>(TViewModel instance, string propertyName) {
-            Func<TViewModel, object> valueGetter;
-            if (!Helpers<TViewModel>.PropertyGetters.TryGetValue(propertyName, out valueGetter))
-                return new List<string>();
-
-            var value = valueGetter(instance);
+        /// <param name="value">The property value.</param>
+        /// <returns>
+        /// The list of validation errors.
+        /// </returns>
+        public IEnumerable<string> ValidateProperty(string propertyName, object value) {
+            ValidationAttribute[] propertyValidators;
+            if (!validators.TryGetValue(propertyName, out propertyValidators))
+                return Enumerable.Empty<string>();
 
 #if SILVERLIGHT
-            var context = new ValidationContext(instance, null, null);
-            return (from v in Helpers<TViewModel>.Validators[propertyName]
-                    where v.GetValidationResult(value, context) != ValidationResult.Success
-                    select v.FormatErrorMessage(propertyName)).ToList();
+            var context = new ValidationContext(this);
+            return from v in propertyValidators
+                   where v.GetValidationResult(value, context) != System.ComponentModel.DataAnnotations.ValidationResult.Success
+                   select v.FormatErrorMessage(propertyName);
 #elif WinRT
-            var context = new ValidationContext(instance);
-            return (from v in Helpers<TViewModel>.Validators[propertyName]
-                    where v.GetValidationResult(value, context) != ValidationResult.Success
-                    select v.FormatErrorMessage(propertyName)).ToList();
+            var context = new ValidationContext(this);
+            return from v in propertyValidators
+                   where v.GetValidationResult(value, context) != System.ComponentModel.DataAnnotations.ValidationResult.Success
+                   select v.FormatErrorMessage(propertyName);
 #else
-            return (from v in Helpers<TViewModel>.Validators[propertyName]
-                    where !v.IsValid(value)
-                    select v.FormatErrorMessage(propertyName)).ToList();
+            return from v in propertyValidators
+                   where !v.IsValid(value)
+                   select v.FormatErrorMessage(propertyName);
 #endif
         }
 
-        /// <summary>
-        /// Validates the specified property.
-        /// </summary>
-        /// <typeparam name="TViewModel">The type of the view model.</typeparam>
-        /// <typeparam name="TProperty">The type of the property.</typeparam>
-        /// <param name="instance">The instance.</param>
-        /// <param name="property">The property.</param>
-        /// <returns></returns>
-        public static IList<string> Validate<TViewModel, TProperty>(TViewModel instance, Expression<Func<TProperty>> property) {
-            return Validate(instance, property.GetMemberInfo().Name);
+        #region Inner Types
+
+        private static class Cache {
+            private static readonly IDictionary<Type, IDictionary<string, ValidationAttribute[]>> Storage =
+                new Dictionary<Type, IDictionary<string, ValidationAttribute[]>>();
+
+            public static IDictionary<string, ValidationAttribute[]> GetOrCreate(Type key) {
+                IDictionary<string, ValidationAttribute[]> validators;
+                lock (Storage) {
+                    if (!Storage.TryGetValue(key, out validators)) {
+                        validators =
+                            (from p in key.GetProperties()
+                                let attrs = p.GetCustomAttributes<ValidationAttribute>(true).ToArray()
+                                where attrs.Length != 0
+                                select new KeyValuePair<string, ValidationAttribute[]>(p.Name, attrs)
+                                ).ToDictionary(p => p.Key, p => p.Value);
+                        Storage[key] = validators;
+                    }
+                }
+                return validators;
+            }
+        }
+
+        #endregion
+    }
+
+#if NET && !NET45 || SILVERLIGHT
+    internal static class CustomAttributeExtensions {
+        public static IEnumerable<T> GetCustomAttributes<T>(this PropertyInfo propertyInfo, bool inherit)
+            where T : Attribute {
+            return propertyInfo.GetCustomAttributes(typeof (T), inherit).Cast<T>();
         }
     }
+#endif
 }
