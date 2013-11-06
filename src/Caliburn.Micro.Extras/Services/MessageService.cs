@@ -14,10 +14,10 @@
         }
 
 #if NET
-		static MessageBoxImage TranslateMessageImage(MessageImage image) {
+        static MessageBoxImage TranslateMessageImage(MessageImage image) {
             var value = image.ToString();
             return (MessageBoxImage)Enum.Parse(typeof(MessageBoxImage), value, true);
-		}
+        }
 
         static Window GetActiveWindow() {
             if (Application.Current == null) {

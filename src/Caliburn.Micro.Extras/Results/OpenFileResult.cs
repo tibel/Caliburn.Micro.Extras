@@ -79,13 +79,15 @@
         /// <param name="directory">The directory.</param>
         /// <returns></returns>
         public OpenFileResult<TResult> In(string directory) {
-            if (!Directory.Exists(directory))
-                throw new ArgumentException(string.Format("Directory '{0}' doesn't exist", directory), "directory");
-
             initialDirectory = directory;
             return this;
         }
+    }
 
+    /// <summary>
+    /// A Caliburn.Micro Result that lets you open a file.
+    /// </summary>
+    public static class OpenFileResult {
         /// <summary>
         /// Open a single file.
         /// </summary>
@@ -104,8 +106,10 @@
             return new MultipleFilesResult(title);
         }
 
-        class OneFileResult : OpenFileResult<FileInfo> {
-            public OneFileResult(string title) : base(false, title) { }
+        private class OneFileResult : OpenFileResult<FileInfo> {
+            public OneFileResult(string title)
+                : base(false, title) {
+            }
 
             protected override void OnCompleted(IOpenFileService openFileService, ResultCompletionEventArgs args) {
                 if (!args.WasCancelled)
@@ -115,8 +119,9 @@
             }
         }
 
-        class MultipleFilesResult : OpenFileResult<IEnumerable<FileInfo>> {
-            public MultipleFilesResult(string title) : base(true, title) {
+        private class MultipleFilesResult : OpenFileResult<IEnumerable<FileInfo>> {
+            public MultipleFilesResult(string title)
+                : base(true, title) {
                 Result = new FileInfo[0];
             }
 

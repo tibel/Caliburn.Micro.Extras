@@ -90,9 +90,6 @@
         /// <param name="directory">The directory.</param>
         /// <returns></returns>
         public SaveFileResult In(string directory) {
-            if (!Directory.Exists(directory))
-                throw new ArgumentException(string.Format("Directory '{0}' doesn't exist", directory), "directory");
-
             initialDirectory = directory;
             return this;
         }
