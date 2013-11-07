@@ -10,7 +10,7 @@ namespace Samples.Validation {
         private readonly Company company;
 
         public ShellViewModel(Company company) {
-            this.validation.Validators.Add(new DataAnnotationsValidator(GetType()));
+            validation.Validators.Add(new DataAnnotationsValidator(GetType()));
             this.company = company;
         }
 
@@ -19,7 +19,7 @@ namespace Samples.Validation {
             get { return company.Name; }
             set {
                 company.Name = value;
-                OnPropertyChanged();
+                OnPropertyChanged(value);
             }
         }
 
@@ -28,7 +28,7 @@ namespace Samples.Validation {
             get { return company.Address; }
             set {
                 company.Address = value;
-                OnPropertyChanged();
+                OnPropertyChanged(value);
             }
         }
 
@@ -38,7 +38,7 @@ namespace Samples.Validation {
             get { return company.Website; }
             set {
                 company.Website = value;
-                OnPropertyChanged();
+                OnPropertyChanged(value);
             }
         }
 
@@ -46,19 +46,22 @@ namespace Samples.Validation {
             get { return company.Contact; }
             set {
                 company.Contact = value;
-                OnPropertyChanged();
+                OnPropertyChanged(value);
             }
         }
 
-        public void Save() {
+        public IResult Save() {
+            return new MessengerResult("Your changes where saved.")
+                .Caption("Save")
+                .Image(MessageImage.Information);
         }
 
         public bool CanSave {
             get { return !validation.HasErrors; }
         }
 
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = "") {
-            validation.Validate(this);
+        protected void OnPropertyChanged(object value, [CallerMemberName] string propertyName = "") {
+            validation.ValidateProperty(propertyName, value);
             NotifyOfPropertyChange(propertyName);
             NotifyOfPropertyChange(() => CanSave);
         }
