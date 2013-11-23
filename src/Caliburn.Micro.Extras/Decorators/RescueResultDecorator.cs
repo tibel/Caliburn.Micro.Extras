@@ -1,7 +1,6 @@
 ﻿namespace Caliburn.Micro.Extras {
     using System;
     using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// A result decorator which rescues errors from the decorated result by executing a rescue coroutine.
@@ -9,59 +8,45 @@
     /// <typeparam name="TException">The type of the exception we want to perform the rescue on</typeparam>
     public class RescueResultDecorator<TException> : ResultDecoratorBase where TException : Exception {
         static readonly ILog Log = LogManager.GetLog(typeof(RescueResultDecorator<>));
-
         readonly bool cancelResult;
-        readonly Func<TException, IEnumerable<IResult>> rescue;
-        ActionExecutionContext context;
+        readonly Func<TException, IEnumerable<IResult>> coroutine;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RescueResultDecorator&lt;TException&gt;"/> class.
         /// </summary>
         /// <param name="result">The result to decorate.</param>
-        /// <param name="rescue">The rescue coroutine.</param>
+        /// <param name="coroutine">The rescue coroutine.</param>
         /// <param name="cancelResult">Set to true to cancel the result after executing rescue.</param>
-        public RescueResultDecorator(IResult result, Func<TException, IEnumerable<IResult>> rescue, bool cancelResult = true) : base(result) {
-            if (rescue == null)
-                throw new ArgumentNullException("rescue");
+        public RescueResultDecorator(IResult result, Func<TException, IEnumerable<IResult>> coroutine, bool cancelResult = true) : base(result) {
+            if (coroutine == null)
+                throw new ArgumentNullException("coroutine");
 
-            this.rescue = rescue;
+            this.coroutine = coroutine;
             this.cancelResult = cancelResult;
-        }
-
-        /// <summary>
-        /// Executes the result using the specified context.
-        /// </summary>
-        /// <param name="context">The context.</param>
-        public override void Execute(ActionExecutionContext context) {
-            this.context = context;
-            base.Execute(context);
         }
 
         /// <summary>
         /// Called when the execution of the decorated result has completed.
         /// </summary>
+        /// <param name="context">The context.</param>
         /// <param name="innerResult">The decorated result.</param>
         /// <param name="args">The <see cref="ResultCompletionEventArgs" /> instance containing the event data.</param>
-        protected override void OnInnerResultCompleted(IResult innerResult, ResultCompletionEventArgs args) {
+        protected override void OnInnerResultCompleted(ActionExecutionContext context, IResult innerResult, ResultCompletionEventArgs args) {
             var error = args.Error as TException;
             if (error == null) {
                 OnCompleted(args);
             }
             else {
-                Rescue(error);
+                Log.Error(error);
+                Log.Info(string.Format("Executing coroutine because {0} threw an exception.", innerResult.GetType().Name));
+                Rescue(context, error);
             }
         }
 
-        void Rescue(TException exception) {
-            var sb = new StringBuilder();
-            sb.AppendFormat("Rescued {0}", exception.GetType().FullName).AppendLine();
-            sb.AppendLine(exception.Message);
-            sb.AppendLine(exception.StackTrace);
-            Log.Info(sb.ToString());
-
+        void Rescue(ActionExecutionContext context, TException exception) {
             IResult rescueResult;
             try {
-                rescueResult = new SequentialResult(rescue(exception).GetEnumerator());
+                rescueResult = Coroutine.CreateParentEnumerator(coroutine(exception).GetEnumerator());
             }
             catch (Exception ex) {
                 OnCompleted(new ResultCompletionEventArgs {Error = ex});
@@ -70,6 +55,7 @@
 
             try {
                 rescueResult.Completed += RescueCompleted;
+                IoC.BuildUp(rescueResult);
                 rescueResult.Execute(context);
             }
             catch (Exception ex) {

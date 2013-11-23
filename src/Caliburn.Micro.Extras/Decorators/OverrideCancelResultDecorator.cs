@@ -15,11 +15,12 @@
         /// <summary>
         /// Called when the execution of the decorated result has completed.
         /// </summary>
+        /// <param name="context">The context.</param>
         /// <param name="innerResult">The decorated result.</param>
         /// <param name="args">The <see cref="ResultCompletionEventArgs" /> instance containing the event data.</param>
-        protected override void OnInnerResultCompleted(IResult innerResult, ResultCompletionEventArgs args) {
+        protected override void OnInnerResultCompleted(ActionExecutionContext context, IResult innerResult, ResultCompletionEventArgs args) {
             if (args.WasCancelled)
-                Log.Info(string.Format("Overriding WasCancelled from {0}", innerResult.GetType().Name));
+                Log.Info(string.Format("Overriding WasCancelled from {0}.", innerResult.GetType().Name));
 
             OnCompleted(new ResultCompletionEventArgs { Error = args.Error });
         }

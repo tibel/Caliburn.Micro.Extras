@@ -6,6 +6,7 @@
     /// </summary>
     public abstract class ResultDecoratorBase : IResult {
         readonly IResult innerResult;
+        ActionExecutionContext context;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ResultDecoratorBase"/> class.
@@ -22,11 +23,13 @@
         /// Executes the result using the specified context.
         /// </summary>
         /// <param name="context">The context.</param>
-        public virtual void Execute(ActionExecutionContext context) {
+        public void Execute(ActionExecutionContext context) {
+            this.context = context;
+
             try {
                 innerResult.Completed += InnerResultCompleted;
                 IoC.BuildUp(innerResult);
-                innerResult.Execute(context);
+                innerResult.Execute(this.context);
             }
             catch (Exception ex) {
                 InnerResultCompleted(innerResult, new ResultCompletionEventArgs { Error = ex });
@@ -35,15 +38,17 @@
 
         void InnerResultCompleted(object sender, ResultCompletionEventArgs args) {
             innerResult.Completed -= InnerResultCompleted;
-            OnInnerResultCompleted(innerResult, args);
+            OnInnerResultCompleted(context, innerResult, args);
+            context = null;
         }
 
         /// <summary>
         /// Called when the execution of the decorated result has completed.
         /// </summary>
+        /// <param name="context">The context.</param>
         /// <param name="innerResult">The decorated result.</param>
         /// <param name="args">The <see cref="ResultCompletionEventArgs"/> instance containing the event data.</param>
-        protected abstract void OnInnerResultCompleted(IResult innerResult, ResultCompletionEventArgs args);
+        protected abstract void OnInnerResultCompleted(ActionExecutionContext context, IResult innerResult, ResultCompletionEventArgs args);
 
         /// <summary>
         /// Occurs when execution has completed.

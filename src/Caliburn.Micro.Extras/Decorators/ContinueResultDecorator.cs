@@ -7,9 +7,7 @@
     /// </summary>
     public class ContinueResultDecorator : ResultDecoratorBase {
         static readonly ILog Log = LogManager.GetLog(typeof(ContinueResultDecorator));
-
         readonly Func<IEnumerable<IResult>> coroutine;
-        ActionExecutionContext context;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ContinueResultDecorator"/> class.
@@ -25,47 +23,43 @@
         }
 
         /// <summary>
-        /// Executes the result using the specified context.
-        /// </summary>
-        /// <param name="context">The context.</param>
-        public override void Execute(ActionExecutionContext context) {
-            this.context = context;
-            base.Execute(context);
-        }
-
-        /// <summary>
         /// Called when the execution of the decorated result has completed.
         /// </summary>
+        /// <param name="context">The context.</param>
         /// <param name="innerResult">The decorated result.</param>
         /// <param name="args">The <see cref="ResultCompletionEventArgs" /> instance containing the event data.</param>
-        protected override void OnInnerResultCompleted(IResult innerResult, ResultCompletionEventArgs args) {
+        protected override void OnInnerResultCompleted(ActionExecutionContext context, IResult innerResult, ResultCompletionEventArgs args) {
             if (args.Error != null || !args.WasCancelled) {
                 OnCompleted(new ResultCompletionEventArgs {Error = args.Error});
             }
             else {
-                Log.Info(string.Format("Executing coroutine because {0} was cancelled", innerResult.GetType().Name));
-
-                IResult cancelResult;
-                try {
-                    cancelResult = new SequentialResult(coroutine().GetEnumerator());
-                }
-                catch (Exception ex) {
-                    OnCompleted(new ResultCompletionEventArgs {Error = ex});
-                    return;
-                }
-
-                try {
-                    cancelResult.Completed += HandleCancelCompleted;
-                    cancelResult.Execute(context);
-                }
-                catch (Exception ex) {
-                    HandleCancelCompleted(cancelResult, new ResultCompletionEventArgs {Error = ex});
-                }
+                Log.Info(string.Format("Executing coroutine because {0} was cancelled.", innerResult.GetType().Name));
+                Continue(context);
             }
         }
 
-        void HandleCancelCompleted(object sender, ResultCompletionEventArgs args) {
-            ((IResult)sender).Completed -= HandleCancelCompleted;
+        void Continue(ActionExecutionContext context) {
+            IResult continueResult;
+            try {
+                continueResult = Coroutine.CreateParentEnumerator(coroutine().GetEnumerator());
+            }
+            catch (Exception ex) {
+                OnCompleted(new ResultCompletionEventArgs {Error = ex});
+                return;
+            }
+
+            try {
+                continueResult.Completed += ContinueCompleted;
+                IoC.BuildUp(continueResult);
+                continueResult.Execute(context);
+            }
+            catch (Exception ex) {
+                ContinueCompleted(continueResult, new ResultCompletionEventArgs {Error = ex});
+            }
+        }
+
+        void ContinueCompleted(object sender, ResultCompletionEventArgs args) {
+            ((IResult)sender).Completed -= ContinueCompleted;
             OnCompleted(new ResultCompletionEventArgs {Error = args.Error, WasCancelled = (args.Error == null)});
         }
     }
