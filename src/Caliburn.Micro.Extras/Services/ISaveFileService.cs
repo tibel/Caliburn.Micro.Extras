@@ -4,7 +4,7 @@
     /// <summary>
     /// Interface for the Save File service.
     /// </summary>
-    public interface ISaveFileSerivce {
+    public interface ISaveFileService {
         /// <summary>
         /// Gets or sets the default file name extension applied to files that are saved.
         /// </summary>

@@ -39,7 +39,7 @@
         /// </summary>
         /// <param name="context">The context.</param>
         public void Execute(ActionExecutionContext context) {
-            var saveFileService = (ISaveFileSerivce) IoC.GetAllInstances(typeof (ISaveFileSerivce)).FirstOrDefault() ??
+            var saveFileService = (ISaveFileService) IoC.GetAllInstances(typeof (ISaveFileService)).FirstOrDefault() ??
                                   new SaveFileService();
             saveFileService.Filter = fileTypeFilter;
             saveFileService.DefaultExt = defaultFileExtension;
@@ -65,7 +65,7 @@
         /// </summary>
         /// <param name="saveFileSerivce">The save file service.</param>
         /// <param name="args">The <see cref="ResultCompletionEventArgs"/> instance containing the event data.</param>
-        protected virtual void OnCompleted(ISaveFileSerivce saveFileSerivce, ResultCompletionEventArgs args) {
+        protected virtual void OnCompleted(ISaveFileService saveFileSerivce, ResultCompletionEventArgs args) {
             if (!args.WasCancelled)
                 lazyStream = new Lazy<Stream>(saveFileSerivce.OpenFile);
 

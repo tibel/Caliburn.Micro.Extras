@@ -9,7 +9,7 @@
     /// <summary>
     /// Service to save files.
     /// </summary>
-    public class SaveFileService : ISaveFileSerivce {
+    public class SaveFileService : ISaveFileService {
         readonly SaveFileDialog saveFileDialog;
 
         /// <summary>

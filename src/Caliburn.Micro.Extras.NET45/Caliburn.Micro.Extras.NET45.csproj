@@ -116,8 +116,8 @@
     <Compile Include="..\Caliburn.Micro.Extras\Services\IOpenFileService.cs">
       <Link>Services\IOpenFileService.cs</Link>
     </Compile>
-    <Compile Include="..\Caliburn.Micro.Extras\Services\ISaveFileSerivce.cs">
-      <Link>Services\ISaveFileSerivce.cs</Link>
+    <Compile Include="..\Caliburn.Micro.Extras\Services\ISaveFileService.cs">
+      <Link>Services\ISaveFileService.cs</Link>
     </Compile>
     <Compile Include="..\Caliburn.Micro.Extras\Services\MessageService.cs">
       <Link>Services\MessageService.cs</Link>
