@@ -17,7 +17,7 @@ The extras are available through NuGet:
 ### Services
 * `IMessageService` to show a message box from the ViewModel
 * `IOpenFileService` wraps an OpenFileDialog 
-* `ISaveFileSerivce` wraps a SaveFileDialog
+* `ISaveFileService` wraps a SaveFileDialog
 
 ### IResult Implementations
 * `CancelResult` always returns WasCancelled=true
