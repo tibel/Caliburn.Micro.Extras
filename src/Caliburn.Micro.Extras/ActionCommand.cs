@@ -2,6 +2,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Reflection;
     using System.Windows.Input;
     using Weakly;
 
@@ -9,7 +10,9 @@
     /// Wraps a ViewModel method (with guard) in an <see cref="ICommand"/>.
     /// </summary>
     public class ActionCommand : ICommand {
-        readonly ActionExecutionContext context;
+        readonly WeakReference targetReference;
+        readonly MethodInfo method;
+        readonly WeakFunc<bool> canExecute;
         readonly WeakEventSource canExecuteChangedSource = new WeakEventSource();
         readonly string guardName;
 
@@ -22,22 +25,18 @@
             if (target == null)
                 throw new ArgumentNullException("target");
 
-            var method = target.GetType().GetMethod(methodName);
+            targetReference = new WeakReference(target);
+            method = target.GetType().GetMethod(methodName);
             if (method == null)
                 throw new ArgumentException(@"Specified method cannot be found.", "methodName");
 
             guardName = "Can" + method.Name;
-            context = new ActionExecutionContext {
-                Target = target,
-                Method = method,
-            };
-
             var guard = target.GetType().GetMethod("get_" + guardName);
             var inpc = target as INotifyPropertyChanged;
             if (inpc == null || guard == null) return;
 
             WeakEventHandler.Register<PropertyChangedEventArgs>(inpc, "PropertyChanged", OnPropertyChanged);
-            context.CanExecute = new WeakFunc<bool>(inpc, guard).Invoke;
+            canExecute = new WeakFunc<bool>(inpc, guard);
         }
 
         void OnPropertyChanged(object sender, PropertyChangedEventArgs e) {
@@ -51,8 +50,11 @@
         /// </summary>
         /// <param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to null.</param>
         public void Execute(object parameter) {
-            var method = DynamicDelegate.From(context.Method);
-            var returnValue = method(context.Target, new object[0]);
+            var target = targetReference.Target;
+            if (target == null) return;
+
+            var execute = DynamicDelegate.From(method);
+            var returnValue = execute(target, new object[0]);
 
             var task = returnValue as System.Threading.Tasks.Task;
             if (task != null) {
@@ -71,6 +73,13 @@
 
             var enumerator = returnValue as IEnumerator<IResult>;
             if (enumerator != null) {
+                var context = new ActionExecutionContext
+                {
+                    Target = target,
+                    Method = method,
+                    CanExecute = canExecute.Invoke,
+                };
+
                 Coroutine.BeginExecute(enumerator, context);
             }
         }
@@ -81,7 +90,7 @@
         /// <param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to null.</param>
         /// <returns>true if this command can be executed; otherwise, false.</returns>
         public bool CanExecute(object parameter) {
-            return context.CanExecute == null || context.CanExecute();
+            return canExecute == null || canExecute.Invoke();
         }
 
         /// <summary>
