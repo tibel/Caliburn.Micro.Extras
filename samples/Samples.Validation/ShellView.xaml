@@ -14,7 +14,7 @@
 					<ControlTemplate>
 						<DockPanel LastChildFill="true">
 							<Border Background="Red" DockPanel.Dock="Right" Margin="5,0,0,0" Width="20" Height="20" CornerRadius="10"
-									ToolTip="{Binding ElementName=customAdorner, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}">
+									ToolTip="{Binding ElementName=customAdorner, Path=AdornedElement.(Validation.Errors).CurrentItem.ErrorContent}">
 								<TextBlock Text="!" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Foreground="White">
 								</TextBlock>
 							</Border>
