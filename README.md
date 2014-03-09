@@ -1,6 +1,6 @@
 # Caliburn.Micro.Extras
 
-[Caliburn.Micro](http://caliburnmicro.codeplex.com/) is a powerful framework for building WPF, Silverlight, Windows Phone and Windows 8 Store apps.
+[Caliburn.Micro](https://github.com/BlueSpire/Caliburn.Micro) is a powerful framework for building WPF, Silverlight, Windows Phone and Windows 8 Store apps.
 These additions make it easier to to get the most out of the framework.
 
 ## Install 
