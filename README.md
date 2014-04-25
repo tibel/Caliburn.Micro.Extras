@@ -12,15 +12,13 @@ The extras are available through NuGet:
 * `ActionCommand` to use Caliburn.Micro _Actions_ with `ICommand`
 * [Win8] `IWindowManager` for displaying normal dialogs all around the screen
 
-### Services
-* `IMessageService` to show a message box from the ViewModel
-* `IOpenFileService` wraps an OpenFileDialog 
-* `ISaveFileService` wraps a SaveFileDialog
-
-### IResult Implementations
-* `MessengerResult` wraps a MessageBox
-* `OpenFileResult` wraps an OpenFileDialog with fluent configuration
-* `SaveFileResult` wraps a SaveFileDialog with fluent configuration
+### Dialogs
+* `IMessageService` to show a MessageBox
+* `IOpenFileService` to show an OpenFileDialog 
+* `ISaveFileService` to show an SaveFileDialog
+* `MessengerResult` wraps IMessageService with fluent configuration
+* `OpenFileResult` wraps IOpenFileService with fluent configuration
+* `SaveFileResult` wraps ISaveFileService with fluent configuration
 
 ### Weak Events
 powered by [Weakly](https://github.com/tibel/Weakly)
