@@ -26,8 +26,7 @@
         /// <summary>
         /// Gets or sets the default file name extension applied to files that are saved.
         /// </summary>
-        public string DefaultExt
-        {
+        public string DefaultExt {
             get { return saveFileDialog.DefaultExt; }
             set { saveFileDialog.DefaultExt = value; }
         }
@@ -35,8 +34,7 @@
         /// <summary>
         /// Gets or sets a filter string that specifies the files types and descriptions to display.
         /// </summary>
-        public string Filter
-        {
+        public string Filter {
             get { return saveFileDialog.Filter; }
             set { saveFileDialog.Filter = value; }
         }
@@ -44,8 +42,7 @@
         /// <summary>
         /// Gets the file name for the selected file.
         /// </summary>
-        public string SafeFileName
-        {
+        public string SafeFileName {
             get { return saveFileDialog.SafeFileName; }
         }
 
@@ -69,8 +66,7 @@
         /// <summary>
         ///  Gets or sets the initial directory displayed by the file dialog box.
         /// </summary>
-        public string InitialDirectory
-        {
+        public string InitialDirectory {
             get { return saveFileDialog.InitialDirectory; }
             set { saveFileDialog.InitialDirectory = value; }
         }
@@ -78,10 +74,16 @@
         /// <summary>
         /// Gets or sets a string shown in the title bar of the file dialog.
         /// </summary> 
-        public string Title
-        {
+        public string Title {
             get { return saveFileDialog.Title; }
             set { saveFileDialog.Title = value; }
+        }
+
+        /// <summary>
+        /// Gets the full path of the selected file.
+        /// </summary>
+        public string FileName {
+            get { return saveFileDialog.FileName; }
         }
 #endif
 

@@ -9,7 +9,6 @@
     /// </summary>
     /// <typeparam name="TResult">The type of the result.</typeparam>
     public abstract class OpenFileResult<TResult> : IResult<TResult> {
-
         readonly bool multiselect;
         readonly string title;
         string fileTypeFilter;

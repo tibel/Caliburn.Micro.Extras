@@ -7,7 +7,6 @@
     /// A Caliburn.Micro Result that lets you save a file.
     /// </summary>
     public class SaveFileResult : IResult<Stream> {
-
         Lazy<Stream> lazyStream;
         readonly string title;
         string fileTypeFilter;
@@ -94,13 +93,14 @@
             return this;
         }
 
-#if NET
         /// <summary>
         /// Ask the user for permission if the file will be overriden.
         /// </summary>
         /// <returns></returns>
         public SaveFileResult PromptForOverwrite() {
+#if NET
             promptForOverwrite = true;
+#endif
             return this;
         }
 
@@ -109,10 +109,11 @@
         /// </summary>
         /// <returns></returns>
         public SaveFileResult PromptForCreate() {
+#if NET
             promptForCreate = true;
+#endif
             return this;
         }
-#endif
 
         /// <summary>
         /// Save a single file.

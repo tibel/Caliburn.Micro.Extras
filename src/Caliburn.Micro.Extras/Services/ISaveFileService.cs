@@ -40,6 +40,11 @@
         /// Gets or sets a string shown in the title bar of the file dialog.
         /// </summary> 
         string Title { get; set; }
+
+        /// <summary>
+        /// Gets the full path of the selected file.
+        /// </summary>
+        string FileName { get; }
 #endif
 
         /// <summary>
