@@ -56,9 +56,12 @@
     <AssemblyOriginatorKeyFile>..\Caliburn.Micro.Extras.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Caliburn.Micro, Version=1.5.2.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+    <Reference Include="Caliburn.Micro, Version=2.0.0.6, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Caliburn.Micro.1.5.2\lib\sl5\Caliburn.Micro.dll</HintPath>
+      <HintPath>..\..\packages\Caliburn.Micro.Core.2.0.0\lib\sl5\Caliburn.Micro.dll</HintPath>
+    </Reference>
+    <Reference Include="Caliburn.Micro.Platform">
+      <HintPath>..\..\packages\Caliburn.Micro.2.0.0\lib\sl5\Caliburn.Micro.Platform.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="System.ComponentModel.DataAnnotations, Version=5.0.5.0, Culture=neutral, PublicKeyToken=ddd0da4d3e678217, processorArchitecture=MSIL">
@@ -73,8 +76,7 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System.Windows.Interactivity, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Caliburn.Micro.1.5.2\lib\sl5\System.Windows.Interactivity.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Caliburn.Micro.2.0.0\lib\sl5\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Net" />
@@ -90,35 +92,8 @@
     <Compile Include="..\Caliburn.Micro.Extras\ContentHost.cs">
       <Link>ContentHost.cs</Link>
     </Compile>
-    <Compile Include="..\Caliburn.Micro.Extras\DebugLogger.cs">
-      <Link>DebugLogger.cs</Link>
-    </Compile>
-    <Compile Include="..\Caliburn.Micro.Extras\Decorators\ContinueResultDecorator.cs">
-      <Link>Decorators\ContinueResultDecorator.cs</Link>
-    </Compile>
-    <Compile Include="..\Caliburn.Micro.Extras\Decorators\OverrideCancelResultDecorator.cs">
-      <Link>Decorators\OverrideCancelResultDecorator.cs</Link>
-    </Compile>
-    <Compile Include="..\Caliburn.Micro.Extras\Decorators\RescueResultDecorator.cs">
-      <Link>Decorators\RescueResultDecorator.cs</Link>
-    </Compile>
-    <Compile Include="..\Caliburn.Micro.Extras\Decorators\ResultDecoratorBase.cs">
-      <Link>Decorators\ResultDecoratorBase.cs</Link>
-    </Compile>
-    <Compile Include="..\Caliburn.Micro.Extras\EventAggregatorExtensions.cs">
-      <Link>EventAggregatorExtensions.cs</Link>
-    </Compile>
     <Compile Include="..\Caliburn.Micro.Extras\ModuleConventions.cs">
       <Link>ModuleConventions.cs</Link>
-    </Compile>
-    <Compile Include="..\Caliburn.Micro.Extras\ResultExtensions.cs">
-      <Link>ResultExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\Caliburn.Micro.Extras\Results\CancelResult.cs">
-      <Link>Results\CancelResult.cs</Link>
-    </Compile>
-    <Compile Include="..\Caliburn.Micro.Extras\Results\DelegateResult.cs">
-      <Link>Results\DelegateResult.cs</Link>
     </Compile>
     <Compile Include="..\Caliburn.Micro.Extras\Results\MessengerResult.cs">
       <Link>Results\MessengerResult.cs</Link>

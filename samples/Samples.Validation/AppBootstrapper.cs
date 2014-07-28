@@ -7,7 +7,7 @@ namespace Samples.Validation {
         private SimpleContainer container;
 
         public AppBootstrapper() {
-            Start();
+            Initialize();
         }
 
         protected override void Configure() {

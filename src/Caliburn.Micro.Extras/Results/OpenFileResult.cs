@@ -33,7 +33,7 @@
         /// Executes the result using the specified context.
         /// </summary>
         /// <param name="context">The context.</param>
-        public void Execute(ActionExecutionContext context) {
+        public void Execute(CoroutineExecutionContext context) {
             var openFileService = (IOpenFileService) IoC.GetAllInstances(typeof (IOpenFileService)).FirstOrDefault() ??
                                   new OpenFileService();
             openFileService.Multiselect = multiselect;

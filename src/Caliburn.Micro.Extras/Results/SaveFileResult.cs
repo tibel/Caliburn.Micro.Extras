@@ -37,7 +37,7 @@
         /// Executes the result using the specified context.
         /// </summary>
         /// <param name="context">The context.</param>
-        public void Execute(ActionExecutionContext context) {
+        public void Execute(CoroutineExecutionContext context) {
             var saveFileService = (ISaveFileService) IoC.GetAllInstances(typeof (ISaveFileService)).FirstOrDefault() ??
                                   new SaveFileService();
             saveFileService.Filter = fileTypeFilter;

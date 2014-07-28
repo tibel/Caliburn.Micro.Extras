@@ -1,8 +1,9 @@
 ﻿<UserControl x:Class="Samples.ContentHost.Views.ShellView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
-             xmlns:extras="clr-namespace:Caliburn.Micro.Extras;assembly=Caliburn.Micro.Extras">
+             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+             xmlns:extras="clr-namespace:Caliburn.Micro.Extras;assembly=Caliburn.Micro.Extras"
+             xmlns:micro="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro">
 
 	<Grid Background="White">
 		<Grid.RowDefinitions>
@@ -25,7 +26,7 @@
 				</ItemsPanelTemplate>
 			</ListBox.ItemsPanel>
 			<ListBox.ItemTemplate>
-				<DataTemplate DataType="cal:IHaveDisplayName">
+				<DataTemplate DataType="micro:IHaveDisplayName">
 					<TextBlock Text="{Binding DisplayName}" />
 				</DataTemplate>
 			</ListBox.ItemTemplate>

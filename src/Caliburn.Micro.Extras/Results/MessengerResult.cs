@@ -59,7 +59,7 @@
         /// Executes the result using the specified context.
         /// </summary>
         /// <param name="context">The context.</param>
-        public void Execute(ActionExecutionContext context) {
+        public void Execute(CoroutineExecutionContext context) {
             var messageService = (IMessageService) IoC.GetAllInstances(typeof (IMessageService)).FirstOrDefault() ??
                                  new MessageService();
             Result = messageService.Show(message, caption, button, image);

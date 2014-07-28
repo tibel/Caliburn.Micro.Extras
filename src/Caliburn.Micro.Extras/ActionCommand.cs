@@ -73,11 +73,9 @@
 
             var enumerator = returnValue as IEnumerator<IResult>;
             if (enumerator != null) {
-                var context = new ActionExecutionContext
+                var context = new CoroutineExecutionContext
                 {
                     Target = target,
-                    Method = method,
-                    CanExecute = canExecute.Invoke,
                 };
 
                 Coroutine.BeginExecute(enumerator, context);

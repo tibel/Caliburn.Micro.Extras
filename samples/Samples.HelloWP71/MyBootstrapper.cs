@@ -5,8 +5,12 @@ using Caliburn.Micro;
 using Caliburn.Micro.Extras;
 
 namespace Samples.HelloWP71 {
-    public class MyBootstrapper : PhoneBootstrapper {
+    public class MyBootstrapper : PhoneBootstrapperBase {
         PhoneContainer container;
+
+        public MyBootstrapper() {
+            Initialize();
+        }
 
         protected override void Configure() {
             container = new PhoneContainer();
