@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
              xmlns:extras="clr-namespace:Caliburn.Micro.Extras;assembly=Caliburn.Micro.Extras"
-             xmlns:micro="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro">
+             xmlns:micro="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
+             Height="400"
+             Width="600">
 
 	<Grid Background="White">
 		<Grid.RowDefinitions>
